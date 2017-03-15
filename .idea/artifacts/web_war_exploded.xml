@@ -2,14 +2,15 @@
   <artifact type="exploded-war" name="web:war exploded">
     <output-path>$PROJECT_DIR$/out/artifacts/web_war_exploded</output-path>
     <root id="root">
-      <element id="javaee-facet-resources" facet="BiliFun/web/Web" />
+      <element id="javaee-facet-resources" facet="Medoragon/web/Web" />
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
-          <element id="module-output" name="BiliFun" />
+          <element id="module-output" name="Medoragon" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="com.squareup.okhttp3:okhttp:3.5.0" />
           <element id="library" level="project" name="com.squareup.okio:okio:1.11.0" />
+          <element id="library" level="project" name="com.google.code.gson:gson:2.8.0" />
         </element>
       </element>
     </root>

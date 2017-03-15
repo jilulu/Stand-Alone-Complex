@@ -1,5 +1,10 @@
-<%@ page import="config.Config" %><%-- Created by IntelliJ IDEA. --%>
+<%@ page import="config.Config" %>
+<%@ page import="java.util.List" %>
+<%@ page import="model.Book" %>
+<%@ page import="contentprovider.MockArrivalBookListProvider" %>
+<%@ page import="contentprovider.BookListProviderFactory" %><%-- Created by IntelliJ IDEA. --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%! List<Book> bookList; %>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -14,15 +19,17 @@
     </title>
 
     <!-- Bootstrap core CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./styles/bootstrap.css" rel="stylesheet">
 
-    <link href="styles/index.css" rel="stylesheet">
+    <link href="./styles/index.css" rel="stylesheet">
+
+    <script src="https://use.fontawesome.com/6a66321c71.js"></script>
 </head>
 
 <body>
 
 <!-- Fixed navbar -->
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
@@ -59,30 +66,49 @@
 </nav>
 
 <div class="container">
+    <div class="new-arrivals">
+        <h1>New Arrivals</h1>
 
-    <!-- Main component for a primary marketing message or call to action -->
-    <div class="jumbotron">
-        <div class="container">
-            <div class="col-lg-4 col-xs-12">
-                <div id="slideshow">
-                    <img src="https://t0.gstatic.com/images?q=tbn:ANd9GcQGfPCb6cq9-LOVKpZsf9Vjitl7dNbS0ZKPea_qXUBwwskkoueQ">
-                    <%--<div>--%>
-                    <%--<img src="http://farm6.static.flickr.com/5230/5638093881_a791e4f819_m.jpg">--%>
-                    <%--</div>--%>
-                    <%--<div>--%>
-                    <%--Pretty cool eh? This slide is proof the content can be anything.--%>
-                    <%--</div>--%>
+        <!-- The new-arrival cards below -->
+        <div class="row">
+            <%
+                if (bookList == null) {
+                    bookList = BookListProviderFactory.getArrivalProvider().provideBookList();
+                }
+                for (int i = 0; i < bookList.size(); i += 1) {
+                    Book book = bookList.get(i);
+            %>
+            <div class="new-arrival-card col-md-4 col-xs-12 <%if (i >= 3) {%>hidden<%}%>">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <b><%=book.getTitle()%>
+                        </b>
+                    </div>
+                    <div class="panel-body">
+                        <img src="<%=book.getCoverUrl()%>" alt="Tatami Chika"/>
+                        <div class="content-description"><%=book.getSummary()%>
+                        </div>
+                        <div class="row action-button-group">
+                            <div class="action-button col-sm-6 col-xs-12"><a class="fa fa-cart-plus"
+                                                                             aria-hidden="true"></a>
+                                Add to cart
+                            </div>
+                            <div class="action-button col-sm-6 col-xs-12"><a class="fa fa-info-circle"
+                                                                             aria-hidden="true"></a> Details
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-lg-8 col-xs-12">
-                <h1><%=Config.CINEMA_NAME%>
-                </h1>
-            </div>
-        </div>
+
+            <%
+                }
+            %>
+        </div><!-- Those new-arrival cards above -->
+        
     </div>
 
-</div> <!-- /container -->
-
+</div>
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
@@ -90,6 +116,16 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<%--<script src="js/index.js"></script>--%>
+<script>
+    $(document).ready(function () {
+        $(".content-description").text(function (index, text) {
+            if (text.length < 200) {
+                return text;
+            } else {
+                return text.substring(0, 200) + "...";
+            }
+        })
+    });
+</script>
 </body>
 </html>

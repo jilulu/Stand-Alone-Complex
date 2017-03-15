@@ -1,10 +1,14 @@
 package api;
 
+import model.douban.Book;
+import model.douban.SearchResponse;
 import okhttp3.Request;
 import okhttp3.Response;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -13,26 +17,22 @@ import java.util.Map;
  */
 public class API {
 
-    private static final String API_KEY_PARAM_KEY = "api_key";
-    private static final String API_KEY = "d69c41d4f7a1d1fb53107f09038a77c1";
-    private static final String API_BASE_URL = "https://api.themoviedb.org/3/";
-    private static final String API_MOVIE_PATH = "movie/now_playing";
+    private static final String API_QUERY_KEY = "q";
+    private static final String API_BASE_URL = "https://api.douban.com/v2/";
+    private static final String API_BOOK_SEARCH_PATH = "book/search";
 
     private API() {
 
     }
 
-    public static String getUpcoming() throws IOException {
-        String path = API_BASE_URL + API_MOVIE_PATH;
-        String url = Utils.appendParamsToURL(getBasicParamMap(), path);
-        Request request = new Request.Builder().url(url).get().build();
-        Response response = OkHttpFactory.getClient().newCall(request).execute();
-        return response.body().string();
-    }
-
-    private static Map<String, String> getBasicParamMap() {
-        Map<String, String> qParams = new HashMap<>();
-        qParams.put(API_KEY_PARAM_KEY, API_KEY);
-        return qParams;
+    public static List<Book> queryDoubanForBooks(String queryValue) throws IOException {
+        Map<String, String> queryMap = new HashMap<>();
+        queryMap.put(API_QUERY_KEY, queryValue);
+        String queryURL = Utils.appendParamsToURL(queryMap, API_BASE_URL + API_BOOK_SEARCH_PATH);
+        Request queryRequest = new Request.Builder().url(queryURL).get().build();
+        Response response = OkHttpFactory.getClient().newCall(queryRequest).execute();
+        SearchResponse searchResponse = GsonFactory.getGson().
+                fromJson(new InputStreamReader(response.body().byteStream(), "utf-8"), SearchResponse.class);
+        return searchResponse == null ? null : searchResponse.books;
     }
 }

@@ -2,14 +2,42 @@ body {
     padding-top: 70px;
 }
 
-#slideshow {
-    /*margin: 80px auto;*/
-    position: relative;
-    width: 100%;
-    /*padding: 10px;*/
-    /*box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);*/
+img.logo {
+    max-width: 100%;
 }
 
-#slideshow > img {
-    max-width: 100%;
+.new-arrivals img {
+    float: right;
+    width: 50%;
+}
+
+.new-arrivals .panel {
+    cursor: default;
+}
+
+.new-arrivals .panel-body {
+    padding-bottom: 0;
+}
+
+.new-arrivals .content-description {
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+}
+
+.new-arrivals .action-button-group {
+    border-top: 1px solid lightgray;
+    margin-top: 15px;
+}
+
+.new-arrivals .action-button {
+    text-align: center;
+    font-size: 16px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.new-arrivals .action-button + .action-button {
+    border-left: 1px solid lightgray;
 }

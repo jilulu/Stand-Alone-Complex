@@ -12,9 +12,9 @@ public class OkHttpFactory {
 
     }
 
-    private static OkHttpClient mClient;
+    private volatile static OkHttpClient mClient;
 
-    public static OkHttpClient getClient() {
+    static OkHttpClient getClient() {
         if (mClient == null) {
             synchronized (OkHttpFactory.class) {
                 if (mClient == null) {
