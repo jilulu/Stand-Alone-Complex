@@ -6,38 +6,65 @@ img.logo {
     max-width: 100%;
 }
 
-.new-arrivals img {
+.recommendations img {
     float: right;
     width: 50%;
 }
 
-.new-arrivals .panel {
+.recommendations .panel {
     cursor: default;
 }
 
-.new-arrivals .panel-body {
+.recommendations .panel-body {
     padding-bottom: 0;
 }
 
-.new-arrivals .content-description {
+.recommendations .content-description {
     -webkit-hyphens: auto;
     -moz-hyphens: auto;
     -ms-hyphens: auto;
     hyphens: auto;
 }
 
-.new-arrivals .action-button-group {
+.recommendations .action-button-group {
     border-top: 1px solid lightgray;
     margin-top: 15px;
 }
 
-.new-arrivals .action-button {
+.recommendations .action-button {
     text-align: center;
     font-size: 16px;
     padding-top: 10px;
     padding-bottom: 10px;
+    cursor: pointer;
+
+    /* hover effects */
+    -webkit-transition: background-color 500ms ease-in-out;
+    -moz-transition: background-color 500ms ease-in-out;
+    -o-transition: background-color 500ms ease-in-out;
+    transition: background-color 500ms ease-in-out;
+
+    /* disable mouse selection on buttons */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
-.new-arrivals .action-button + .action-button {
+.recommendations .action-button:hover {
+    background-color: lightgray;
+}
+
+.recommendations .action-button a {
+    color: #000;
+}
+
+.recommendations .action-button a:hover {
+    color: #000;
+    text-decoration: none;
+}
+
+.recommendations .action-button + .action-button {
     border-left: 1px solid lightgray;
 }
