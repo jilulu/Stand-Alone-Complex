@@ -3,8 +3,9 @@ package model.douban;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import model.IBook;
 
-public class Book {
+public class Book implements IBook {
 
     @SerializedName("rating")
     @Expose
@@ -79,4 +80,34 @@ public class Book {
     @Expose
     public String price;
 
+
+    @Override
+    public String getTitle() {
+        return title;
+    }
+
+    @Override
+    public String getImprint() {
+        return publisher;
+    }
+
+    @Override
+    public String getSummary() {
+        return summary;
+    }
+
+    @Override
+    public String getAuthor() {
+        return author.toString().replace("[", "").replace("]", "");
+    }
+
+    @Override
+    public String getIsbn() {
+        return isbn10;
+    }
+
+    @Override
+    public String getCoverUrl() {
+        return images.large;
+    }
 }
