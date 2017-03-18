@@ -3,7 +3,8 @@
 <%@ page import="contentprovider.booklist.BookListProviderFactory" %>
 <%@ page import="model.IBook" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%! private List<? extends IBook> bookList, recommendationBookList; %>
+<%! private List<? extends IBook> bookList;
+    private List<? extends IBook> recommendationBookList; %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +12,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="<%=Config.CINEMA_NAME_ANNOTATED%>">
+    <meta name="description" content="<%=Config.CINEMA_NAME%>">
     <meta name="author" content="James Ji">
     <%--<link rel="icon" href="../../favicon.ico">--%>
 
@@ -28,7 +29,7 @@
 
 <body>
 
-<%@include file="components/header.html" %>
+<%@include file="components/header.jsp" %>
 
 <div class="container">
     <div class="recommendations">
@@ -43,7 +44,7 @@
                 for (int i = 0; i < bookList.size(); i += 1) {
                     IBook book = bookList.get(i);
             %>
-            <div class="new-arrival-card col-md-4 col-xs-12 <%if (i >= 3) {%>hidden<%}%>">
+            <div class="new-arrival-card col-md-4 col-xs-12 <%if (i >= 3) {%>hidden<%}%>" id="<%=book.getId()%>">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <b><%=book.getTitle()%>
@@ -54,12 +55,14 @@
                         <div class="content-description"><%=book.getSummary()%>
                         </div>
                         <div class="row action-button-group">
-                            <div class="action-button col-sm-6 col-xs-12"><a class="fa fa-cart-plus"
-                                                                             aria-hidden="true"></a>
+                            <div class="action-button add-cart-action-button col-sm-6 col-xs-12"><a
+                                    class="fa fa-cart-plus"
+                                    aria-hidden="true"></a>
                                 Add to cart
                             </div>
-                            <div class="action-button col-sm-6 col-xs-12"><a class="fa fa-info-circle"
-                                                                             aria-hidden="true"></a> Details
+                            <div class="action-button details-action-button col-sm-6 col-xs-12"><a
+                                    class="fa fa-info-circle"
+                                    aria-hidden="true"></a> Details
                             </div>
                         </div>
                     </div>
@@ -86,7 +89,7 @@
                 for (int i = 0; i < recommendationBookList.size(); i += 1) {
                     IBook book = recommendationBookList.get(i);
             %>
-            <div class="new-arrival-card col-md-4 col-xs-12 <%if (i >= 3) {%>hidden<%}%>">
+            <div class="new-arrival-card col-md-4 col-xs-12 <%if (i >= 3) {%>hidden<%}%>" id="<%=book.getId()%>">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <b><%=book.getTitle()%>
@@ -97,12 +100,14 @@
                         <div class="content-description"><%=book.getSummary()%>
                         </div>
                         <div class="row action-button-group">
-                            <div class="action-button col-sm-6 col-xs-12"><a class="fa fa-cart-plus"
-                                                                             aria-hidden="true"></a>
+                            <div class="action-button add-cart-action-button col-sm-6 col-xs-12"><a
+                                    class="fa fa-cart-plus"
+                                    aria-hidden="true"></a>
                                 Add to cart
                             </div>
-                            <div class="action-button col-sm-6 col-xs-12"><a class="fa fa-info-circle"
-                                                                             aria-hidden="true"></a> Details
+                            <div class="action-button details-action-button col-sm-6 col-xs-12"><a
+                                    class="fa fa-info-circle"
+                                    aria-hidden="true"></a> Details
                             </div>
                         </div>
                     </div>
@@ -125,15 +130,22 @@
 <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script>
-    $(document).ready(function () {
+    $(function () {
         $(".content-description").text(function (index, text) {
             if (text.length < 200) {
                 return text;
             } else {
                 return text.substring(0, 200) + "...";
             }
-        })
+        });
     });
+    $(function () {
+        $('.details-action-button').click(function () {
+            var bookId = $(this).parents('.new-arrival-card').attr('id');
+            window.location.href = "${pageContext.request.contextPath}/book-details.jsp?id=" + bookId;
+        });
+    })
 </script>
+
 </body>
 </html>

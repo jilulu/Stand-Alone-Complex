@@ -16,4 +16,8 @@ public interface IBook {
     String getIsbn();
 
     String getCoverUrl();
+
+    String getId();
+
+    String getPrice();
 }

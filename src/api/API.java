@@ -1,5 +1,6 @@
 package api;
 
+import model.IBook;
 import model.douban.Book;
 import model.douban.SearchResponse;
 import okhttp3.Request;
@@ -18,8 +19,8 @@ import java.util.Map;
 public class API {
 
     private static final String API_QUERY_KEY = "q";
-    private static final String API_BASE_URL = "https://api.douban.com/v2/";
-    private static final String API_BOOK_SEARCH_PATH = "book/search";
+    private static final String API_BASE_URL = "https://api.douban.com/v2/book/";
+    private static final String API_BOOK_SEARCH_PATH = "search";
 
     private API() {
 
@@ -34,5 +35,16 @@ public class API {
         SearchResponse searchResponse = GsonFactory.getGson().
                 fromJson(new InputStreamReader(response.body().byteStream(), "utf-8"), SearchResponse.class);
         return searchResponse == null ? null : searchResponse.books;
+    }
+
+    public static IBook queryDoubanForBookDetail(String id) throws IOException {
+        if (id == null || id.length() == 0) {
+            return null;
+        }
+        String bookURL = API_BASE_URL + id;
+        Request bookDetailRequest = new Request.Builder().url(bookURL).get().build();
+        Response response = OkHttpFactory.getClient().newCall(bookDetailRequest).execute();
+        return GsonFactory.getGson()
+                .fromJson(new InputStreamReader(response.body().byteStream(), "utf-8"), Book.class);
     }
 }

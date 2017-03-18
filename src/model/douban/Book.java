@@ -1,9 +1,10 @@
 package model.douban;
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import model.IBook;
+
+import java.util.List;
 
 public class Book implements IBook {
 
@@ -109,5 +110,15 @@ public class Book implements IBook {
     @Override
     public String getCoverUrl() {
         return images.large;
+    }
+
+    @Override
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public String getPrice() {
+        return price;
     }
 }
