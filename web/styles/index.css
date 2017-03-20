@@ -2,14 +2,69 @@ body {
     padding-top: 70px;
 }
 
-#slideshow {
-    /*margin: 80px auto;*/
-    position: relative;
-    width: 100%;
-    /*padding: 10px;*/
-    /*box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);*/
+img.logo {
+    max-width: 100%;
 }
 
-#slideshow > img {
-    max-width: 100%;
+.recommendations img {
+    float: right;
+    width: 50%;
+}
+
+.recommendations .panel {
+    cursor: default;
+}
+
+.recommendations .panel-body {
+    padding-bottom: 0;
+}
+
+.recommendations .content-description {
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+}
+
+.recommendations .action-button-group {
+    border-top: 1px solid lightgray;
+    margin-top: 15px;
+}
+
+.recommendations .action-button {
+    text-align: center;
+    font-size: 16px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    cursor: pointer;
+
+    /* hover effects */
+    -webkit-transition: background-color 500ms ease-in-out;
+    -moz-transition: background-color 500ms ease-in-out;
+    -o-transition: background-color 500ms ease-in-out;
+    transition: background-color 500ms ease-in-out;
+
+    /* disable mouse selection on buttons */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.recommendations .action-button:hover {
+    background-color: lightgray;
+}
+
+.recommendations .action-button a {
+    color: #000;
+}
+
+.recommendations .action-button a:hover {
+    color: #000;
+    text-decoration: none;
+}
+
+.recommendations .action-button + .action-button {
+    border-left: 1px solid lightgray;
 }

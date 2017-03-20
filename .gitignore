@@ -1,0 +1,6 @@
+.idea/
+/out/
+Medoragon.iml
+
+# macOS
+.DS_Store
