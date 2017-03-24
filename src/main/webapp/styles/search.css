@@ -1,0 +1,18 @@
+body {
+    padding-top: 70px;
+}
+
+img.book-cover {
+    display: block;
+    margin: 0 auto;
+    max-width: 50%;
+}
+
+.search-result{
+    margin: 10px auto;
+    padding: 10px 0;
+}
+
+.search-result:not(:last-child) {
+    border-bottom: solid lightgray 1px;
+}
