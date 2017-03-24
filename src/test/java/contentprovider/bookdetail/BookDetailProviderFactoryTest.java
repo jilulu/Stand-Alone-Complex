@@ -1,9 +1,11 @@
+package contentprovider.bookdetail;
+
+import api.APITest;
 import api.GsonFactory;
-import contentprovider.bookdetail.BookDetailProviderFactory;
 import model.IBook;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Created by jamesji on 19/03/2017.
@@ -11,8 +13,12 @@ import static org.junit.Assert.*;
  */
 public class BookDetailProviderFactoryTest {
     @Test
-    public void testProvider() {
+    public void testProvider() throws Exception {
         for (String queryISBN : APITest.queryISBNs) {
+
+            // Don't harm Douban
+            Thread.sleep(1000);
+
             IBook iBook = BookDetailProviderFactory.getProvider().provideBookDetails(queryISBN);
             System.out.println("Fetching book details for " + queryISBN);
             if (queryISBN.length() == 0 || queryISBN.equals(" ")) {

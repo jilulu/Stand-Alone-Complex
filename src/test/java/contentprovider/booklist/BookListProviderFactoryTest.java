@@ -1,4 +1,5 @@
-import contentprovider.booklist.BookListProviderFactory;
+package contentprovider.booklist;
+
 import model.IBook;
 import org.junit.Test;
 
