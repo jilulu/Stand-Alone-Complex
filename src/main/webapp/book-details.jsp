@@ -10,15 +10,15 @@
     private final static int PURCHASE_QUANTITY_MAX = 30;
 %>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="<%=Config.CINEMA_NAME%>">
+    <meta name="description" content="<%=book.getTitle()%>">
     <meta name="author" content="James Ji">
-    <%--<link rel="icon" href="../../favicon.ico">--%>
+    <%@include file="components/fav-icon-fragment.jsp" %>
 
     <title><%=book.getTitle()%></title>
 
@@ -26,8 +26,6 @@
     <link href="./styles/bootstrap.css" rel="stylesheet">
 
     <link href="./styles/book-details.css" rel="stylesheet">
-
-    <script src="https://use.fontawesome.com/6a66321c71.js"></script>
 </head>
 <body>
 
@@ -35,10 +33,10 @@
 
 <div class="container">
     <div class="row">
-        <div class="book-cover col-sm-3 col-sm-12">
+        <div class="book-cover col-sm-3 col-xs-12">
             <img src="<%=book.getCoverUrl()%>" alt="Book cover">
         </div>
-        <div class="book-brief-info col-sm-9 col-sm-12">
+        <div class="book-brief-info col-sm-9 col-xs-12">
             <h2><%=book.getTitle()%>
             </h2>
             <div class="row">

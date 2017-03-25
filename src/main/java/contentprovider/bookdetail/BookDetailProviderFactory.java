@@ -11,7 +11,7 @@ public class BookDetailProviderFactory {
         if (mInstance == null) {
             synchronized (BookDetailProviderFactory.class) {
                 if (mInstance == null) {
-                    mInstance = new BookDetailProvider();
+                    mInstance = new MockBookDetailProvider();
                 }
             }
         }

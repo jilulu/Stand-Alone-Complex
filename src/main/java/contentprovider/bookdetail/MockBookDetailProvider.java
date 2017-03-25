@@ -9,7 +9,10 @@ import java.io.IOException;
  * Created by jamesji on 18/03/2017.
  * Copyright © 2017 James Ji. All rights reserved.
  */
-public class BookDetailProvider implements IBookDetailProvider {
+public class MockBookDetailProvider implements IBookDetailProvider {
+    MockBookDetailProvider() {
+        // disallow usages outside package
+    }
 
     @Override
     public IBook provideBookDetails(String id) {

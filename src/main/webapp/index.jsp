@@ -6,7 +6,7 @@
 <%! private List<? extends IBook> bookList;
     private List<? extends IBook> recommendationBookList; %>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,7 +14,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="<%=Config.CINEMA_NAME%>">
     <meta name="author" content="James Ji">
-    <%--<link rel="icon" href="../../favicon.ico">--%>
+    <%@include file="components/fav-icon-fragment.jsp" %>
 
     <title><%=Config.CINEMA_NAME%>
     </title>

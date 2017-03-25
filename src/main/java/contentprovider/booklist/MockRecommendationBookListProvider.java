@@ -10,6 +10,11 @@ import java.util.List;
  * Created by jamesji on 16/03/2017.
  */
 public class MockRecommendationBookListProvider implements IBookListProvider {
+
+    MockRecommendationBookListProvider() {
+
+    }
+
     @Override
     public List<? extends IBook> provideBookList() {
         List<model.douban.Book> resultBookList = null;
