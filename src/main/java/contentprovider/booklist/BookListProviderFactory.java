@@ -14,7 +14,7 @@ public class BookListProviderFactory {
         if (arrivalProvider == null) {
             synchronized (BookListProviderFactory.class) {
                 if (arrivalProvider == null) {
-                    arrivalProvider = new MockArrivalBookListProvider();
+                    arrivalProvider = new SQLArrivalBookListProvider();
                 }
             }
         }
@@ -25,7 +25,7 @@ public class BookListProviderFactory {
         if (recommendationProvider == null) {
             synchronized (BookListProviderFactory.class) {
                 if (recommendationProvider == null) {
-                    recommendationProvider = new MockRecommendationBookListProvider();
+                    recommendationProvider = new SQLRecommendationBookListProvider();
                 }
             }
         }

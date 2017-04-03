@@ -1,6 +1,5 @@
 package contentprovider.bookdetail;
 
-import api.APITest;
 import api.GsonFactory;
 import model.IBook;
 import org.junit.Test;
@@ -14,14 +13,12 @@ import static org.junit.Assert.assertNotNull;
 public class BookDetailProviderFactoryTest {
     @Test
     public void testProvider() throws Exception {
-        for (String queryISBN : APITest.queryISBNs) {
+        String[] ids = {"715", "716", "717", "718", "719"};
+        for (String id : ids) {
 
-            // Don't harm Douban
-            Thread.sleep(1000);
-
-            IBook iBook = BookDetailProviderFactory.getProvider().provideBookDetails(queryISBN);
-            System.out.println("Fetching book details for " + queryISBN);
-            if (queryISBN.length() == 0 || queryISBN.equals(" ")) {
+            IBook iBook = BookDetailProviderFactory.getProvider().provideBookDetails(id);
+            System.out.println("Fetching book details for " + id);
+            if (id.length() == 0 || id.equals(" ")) {
                 // expect null
                 System.out.println("Got result: " + iBook);
             } else {

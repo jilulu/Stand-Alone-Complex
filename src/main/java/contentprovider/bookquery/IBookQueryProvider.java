@@ -7,5 +7,5 @@ import model.IQueryResult;
  * Copyright © 2017 James Ji. All rights reserved.
  */
 public interface IBookQueryProvider {
-    IQueryResult queryForBooks(String query);
+    IQueryResult queryForBooks(String query, int offset, int limit);
 }

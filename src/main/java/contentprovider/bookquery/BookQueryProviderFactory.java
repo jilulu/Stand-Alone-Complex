@@ -13,7 +13,7 @@ public class BookQueryProviderFactory {
         if (mInstance == null) {
             synchronized (BookDetailProviderFactory.class) {
                 if (mInstance == null) {
-                    mInstance = new MockBookQueryProvider();
+                    mInstance = new SQLBookQueryProvider();
                 }
             }
         }

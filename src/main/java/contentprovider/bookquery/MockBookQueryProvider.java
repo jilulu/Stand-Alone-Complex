@@ -17,10 +17,10 @@ public class MockBookQueryProvider implements IBookQueryProvider {
     }
 
     @Override
-    public IQueryResult queryForBooks(String query) {
+    public IQueryResult queryForBooks(String query, int offset, int limit) {
         SearchResponse searchResponse = null;
         try {
-            searchResponse = API.queryDouban(query);
+            searchResponse = API.queryDouban(query, offset, limit);
         } catch (IOException e) {
             e.printStackTrace();
         }
