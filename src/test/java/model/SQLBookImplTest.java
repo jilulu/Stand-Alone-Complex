@@ -18,6 +18,12 @@ public class SQLBookImplTest {
                 new SQLBookImpl("Effective Java", "Addison-Wesley", "", "Joshua Bloch",
                         "978-0-321-35668-0", "", "USD99.99", "528491")
         );
+        assertNotEquals(
+                new SQLBookImpl("Effective Java", "Addison-Wesley", "", "Joshua Bloch",
+                        "978-0-321-35668-0", "", "USD99.99", "528491"),
+                new SQLBookImpl("Effective Python", "Addison-Wesley", "", "Joshua Bloch",
+                        "978-0-321-35668-0", "", "USD99.99", "528491")
+        );
     }
 
     @Test

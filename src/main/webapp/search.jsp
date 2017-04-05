@@ -22,8 +22,8 @@
     </title>
 
     <!-- Bootstrap core CSS -->
-    <link href="./styles/bootstrap.css" rel="stylesheet">
-    <link href="./styles/search.css" rel="stylesheet"/>
+    <link href="static/styles/bootstrap.css" rel="stylesheet">
+    <link href="static/styles/search.css" rel="stylesheet"/>
 </head>
 <body>
 <%@include file="components/header.jsp" %>

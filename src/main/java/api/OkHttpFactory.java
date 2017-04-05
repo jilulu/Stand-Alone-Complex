@@ -14,7 +14,7 @@ public class OkHttpFactory {
 
     private volatile static OkHttpClient mClient;
 
-    static OkHttpClient getClient() {
+    public static OkHttpClient getClient() {
         if (mClient == null) {
             synchronized (OkHttpFactory.class) {
                 if (mClient == null) {

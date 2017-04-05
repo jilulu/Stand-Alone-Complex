@@ -1,5 +1,8 @@
-package api;
+package api.book;
 
+import api.GsonFactory;
+import api.OkHttpFactory;
+import api.Utils;
 import model.IBook;
 import model.douban.Book;
 import model.douban.SearchResponse;

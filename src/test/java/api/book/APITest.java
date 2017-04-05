@@ -1,4 +1,4 @@
-package api;
+package api.book;
 
 import model.IBook;
 import model.douban.Book;

@@ -1,6 +1,6 @@
 package contentprovider.bookdetail;
 
-import api.DatabaseHelper;
+import api.book.DatabaseHelper;
 import model.IBook;
 
 /**

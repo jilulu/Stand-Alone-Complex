@@ -19,46 +19,31 @@
         <title><%=Config.SIGNUP_TITLE%></title>
 
         <!-- Bootstrap core CSS -->
-        <link href="./styles/bootstrap.css" rel="stylesheet">
+        <link href="../static/styles/bootstrap.css" rel="stylesheet">
 
-        <link href="./styles/book-details.css" rel="stylesheet">
+        <link href="../static/styles/book-details.css" rel="stylesheet">
 
         <script src="https://use.fontawesome.com/6a66321c71.js"></script>
     </head>
     <body>
-        <%@include file="components/header.jsp" %>
+        <%@include file="../components/header.jsp" %>
         
         <div class="container">
             <div class="row">
             <div class="col-md-4 col-md-offset-4">
-                <form class="form-signup">
+                <form class="form-signup" action="${pageContext.request.contextPath}/user/add" method="post">
                     <h2 class="form-signup-heading"><%=Config.SIGNUP_TITLE%></h2>
                     <br>
                     <div class="form-group">
-                        <label for="inputEmail">*<%=Config.SIGNUP_EMAIL_LABEL%></label>
-                        <input type="email" id="inputEmail" class="form-control" placeholder="email@example.com" required="" autofocus="">
-                        <p class="help-block"><%=Config.SIGNUP_EMAIL_HELP%></p>
-                    </div>
-                    <div class="form-group">
                         <label for="inputUsername">*<%=Config.SIGNUP_USERNAME_LABEL%></label>
-                        <input type="text" id="inputUsername" class="form-control" placeholder="peterpan" required="">
+                        <input type="text" id="inputUsername" class="form-control" placeholder="peterpan" required="" name="username">
                         <p class="help-block"><%=Config.SIGNUP_USERNAME_HELP%></p>
                     </div>
                     <div class="form-group">
                         <label for="inputPassword">*<%=Config.SIGNUP_PASSWORD_LABEL%></label>
-                        <input type="password" id="inputPassword" class="form-control" placeholder="password" required="">
+                        <input type="password" id="inputPassword" class="form-control" placeholder="password" required="" name="userpassword">
                     </div>
-                    <div class="form-group row">
-                        <div class="col-sm-6">
-                        <label for="inputLastname"><%=Config.SIGNUP_LASTNAME_LABEL%></label>
-                        <input type="text" id="inputLastname" class="form-control" placeholder="peter">
-                        </div>
-                        <div class="col-sm-6">
-                        <label for="inputFirstname"><%=Config.SIGNUP_FIRSTNAME_LABEL%></label>
-                        <input type="text" id="inputFirstname" class="form-control" placeholder="pan">
-                        </div>
-                    </div>
-                    
+
                     <button class="btn btn-default btn-block" type="submit"><%=Config.SIGNUP_SIGNUP_BUTTON%></button>
                     
                 </form>

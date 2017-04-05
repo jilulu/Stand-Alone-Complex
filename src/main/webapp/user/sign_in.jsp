@@ -19,35 +19,30 @@
         <title><%=Config.SIGNIN_TITLE%></title>
 
         <!-- Bootstrap core CSS -->
-        <link href="./styles/bootstrap.css" rel="stylesheet">
-        <link href="./styles/book-details.css" rel="stylesheet">
+        <link href="../static/styles/bootstrap.css" rel="stylesheet">
+        <link href="../static/styles/book-details.css" rel="stylesheet">
 
         <script src="https://use.fontawesome.com/6a66321c71.js"></script>
     </head>
     <body>
-        <%@include file="components/header.jsp" %>
+        <%@include file="../components/header.jsp" %>
         
         <div class="container">
             <div class="row">
             <div class="col-md-4 col-md-offset-4">
-                <form class="form-signin">
+                <form class="form-signin" action="${pageContext.request.contextPath}/user/auth" method="post">
                     <h2 class="form-signin-heading"><%=Config.SIGNIN_TITLE%></h2>
                     <br>
                     <div class="form-group">
                         <label for="inputEmail" ><%=Config.SIGNIN_EMAIL_LABEL%></label>
-                        <input type="email" id="inputEmail" class="form-control" placeholder="email@example.com" required="" autofocus="">
+                        <input name="username" type="text" id="inputEmail" class="form-control" placeholder="peterpan" required="" autofocus="">
                     </div>
                     <div class="form-group">
                         <label for="inputPassword" ><%=Config.SIGNIN_PASSWORD_LABEL%></label>
-                        <input type="password" id="inputPassword" class="form-control" placeholder="password" required="">
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" value="remember-me"> <%=Config.SIGNIN_REMEMBERME_CHECKBOX%>
-                        </label>
+                        <input name="userpassword" type="password" id="inputPassword" class="form-control" placeholder="password" required="">
                     </div>
                     <button class="btn btn-default btn-block" type="submit"><%=Config.SIGNIN_SIGNIN_BUTTON%></button>
-                    <a class="btn btn-default btn-block" href="sign-up.jsp" role="button"><%=Config.SIGNIN_SIGNUP_BUTTON%></a>
+                    <a class="btn btn-default btn-block" href="sign_up.jsp" role="button"><%=Config.SIGNIN_SIGNUP_BUTTON%></a>
                 </form>
             </div>
             </div>

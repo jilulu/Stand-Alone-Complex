@@ -1,6 +1,6 @@
 package contentprovider.booklist;
 
-import api.DatabaseHelper;
+import api.book.DatabaseHelper;
 import model.IBook;
 import model.SQLBookImpl;
 

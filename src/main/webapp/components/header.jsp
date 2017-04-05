@@ -1,4 +1,5 @@
 <%@ page import="config.Config" %>
+<%@ page import="java.io.PrintWriter" %>
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -44,7 +45,15 @@
             </form>
 
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Login</a></li>
+                <%
+                    String usernameAttribute = (String) request.getSession().getAttribute("username");
+                    String userTokenAttribute = (String) request.getSession().getAttribute("token");
+                    if (usernameAttribute != null && userTokenAttribute != null) {
+                %>
+                <li><a href="#"><%=usernameAttribute%></a></li>
+                <% } else { %>
+                <li><a href="${pageContext.request.contextPath}/user/sign_in.jsp">Login</a></li>
+                <% } %>
             </ul>
         </div><!--/.nav-collapse -->
     </div>

@@ -5,13 +5,22 @@
 		  http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
            version="3.0">
     <servlet>
-        <servlet-name>ApiForwarder</servlet-name>
-        <servlet-class>api.ApiForwarder</servlet-class>
+        <servlet-name>Registration</servlet-name>
+        <servlet-class>api.user.UserRegistrationServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SignIn</servlet-name>
+        <servlet-class>api.user.UserSignInServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>ApiForwarder</servlet-name>
-        <url-pattern>/api</url-pattern>
+        <servlet-name>Registration</servlet-name>
+        <url-pattern>/user/add</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>SignIn</servlet-name>
+        <url-pattern>/user/auth</url-pattern>
     </servlet-mapping>
 
 </web-app>

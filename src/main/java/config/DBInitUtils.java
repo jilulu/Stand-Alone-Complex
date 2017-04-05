@@ -1,7 +1,7 @@
 package config;
 
-import api.API;
-import api.DatabaseHelper;
+import api.book.API;
+import api.book.DatabaseHelper;
 import model.IBook;
 import model.IQueryResult;
 

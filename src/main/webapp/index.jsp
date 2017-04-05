@@ -1,7 +1,4 @@
-<%@ page import="config.Config" %>
-<%@ page import="java.util.List" %>
-<%@ page import="contentprovider.booklist.BookListProviderFactory" %>
-<%@ page import="model.IBook" %>
+<%@ page import="config.Config,java.util.List,contentprovider.booklist.BookListProviderFactory,model.IBook" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%! private List<? extends IBook> bookList;
     private List<? extends IBook> recommendationBookList; %>
@@ -20,9 +17,9 @@
     </title>
 
     <!-- Bootstrap core CSS -->
-    <link href="./styles/bootstrap.css" rel="stylesheet">
+    <link href="static/styles/bootstrap.css" rel="stylesheet">
 
-    <link href="./styles/index.css" rel="stylesheet">
+    <link href="static/styles/index.css" rel="stylesheet">
 
     <script src="https://use.fontawesome.com/6a66321c71.js"></script>
 </head>

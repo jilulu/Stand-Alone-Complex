@@ -1,6 +1,6 @@
 package contentprovider.bookquery;
 
-import api.API;
+import api.book.API;
 import model.IQueryResult;
 import model.douban.SearchResponse;
 

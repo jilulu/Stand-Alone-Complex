@@ -1,5 +1,7 @@
-package api;
+package api.book;
 
+import api.DatabaseManager;
+import api.GsonFactory;
 import model.SQLBookImpl;
 import org.junit.Test;
 
@@ -17,7 +19,7 @@ public class DatabaseHelperTest {
 
     @Test
     public void testConnection() throws Exception {
-        Connection connection = DatabaseHelper.getInstance().getDatabaseConnection();
+        Connection connection = DatabaseManager.getInstance().getDatabaseConnection();
         assertNotNull(connection);
         if (!connection.isClosed()) {
             connection.close();

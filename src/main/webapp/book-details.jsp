@@ -23,9 +23,9 @@
     <title><%=book.getTitle()%></title>
 
     <!-- Bootstrap core CSS -->
-    <link href="./styles/bootstrap.css" rel="stylesheet">
+    <link href="static/styles/bootstrap.css" rel="stylesheet">
 
-    <link href="./styles/book-details.css" rel="stylesheet">
+    <link href="static/styles/book-details.css" rel="stylesheet">
 </head>
 <body>
 

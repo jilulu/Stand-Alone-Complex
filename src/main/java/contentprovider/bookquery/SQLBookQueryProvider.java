@@ -1,6 +1,6 @@
 package contentprovider.bookquery;
 
-import api.DatabaseHelper;
+import api.book.DatabaseHelper;
 import model.IBook;
 import model.IQueryResult;
 import model.SQLBookImpl;

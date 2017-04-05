@@ -10,7 +10,7 @@ public class DBInitUtilsTest {
     @Test
     public void initDataBase() throws Exception {
 //      WARNING: DO NOT uncomment and run this test.
-//        This test method is used to populate database with books
+//        This test method is used to populate database with book
 //
 //
 //        DBInitUtils.initDataBase(new DBInitUtils.Callback() {
