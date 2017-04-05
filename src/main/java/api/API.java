@@ -19,6 +19,8 @@ import java.util.Map;
 public class API {
 
     private static final String API_QUERY_KEY = "q";
+    private static final String API_QUERY_START = "start";
+    private static final String API_QUERY_COUNT = "count";
     private static final String API_BASE_URL = "https://api.douban.com/v2/book/";
     private static final String API_BOOK_SEARCH_PATH = "search";
 
@@ -27,13 +29,22 @@ public class API {
     }
 
     public static SearchResponse queryDouban(String queryValue) throws IOException {
+        return queryDouban(queryValue, -1, -1);
+    }
+
+    public static SearchResponse queryDouban(String queryValue, int start, int limit) throws IOException {
         Map<String, String> queryMap = new HashMap<>();
         queryMap.put(API_QUERY_KEY, queryValue);
+        if (start >= 0 && limit >= 0) {
+            queryMap.put(API_QUERY_START, String.valueOf(start));
+            queryMap.put(API_QUERY_COUNT, String.valueOf(limit));
+        }
         String queryURL = Utils.appendParamsToURL(queryMap, API_BASE_URL + API_BOOK_SEARCH_PATH);
         Request queryRequest = new Request.Builder().url(queryURL).get().build();
         Response response = OkHttpFactory.getClient().newCall(queryRequest).execute();
-        return GsonFactory.getGson().
-                fromJson(new InputStreamReader(response.body().byteStream(), "utf-8"), SearchResponse.class);
+        return GsonFactory.getGson().fromJson(
+                new InputStreamReader(response.body().byteStream(), "utf-8"), SearchResponse.class
+        );
     }
 
     public static List<Book> queryDoubanForBooks(String queryValue) throws IOException {

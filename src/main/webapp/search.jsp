@@ -29,7 +29,7 @@
 <%@include file="components/header.jsp" %>
 
 <div class="container">
-    <% IQueryResult result = BookQueryProviderFactory.getProvider().queryForBooks(query); %>
+    <% IQueryResult result = BookQueryProviderFactory.getProvider().queryForBooks(query, 0, 20); %>
 
     <!-- Search result headings -->
     <h1>Search results for <%=query%>
