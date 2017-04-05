@@ -15,7 +15,7 @@ import java.util.List;
 public class SQLRecommendationBookListProvider implements IBookListProvider {
     @Override
     public List<? extends IBook> provideBookList() {
-        Collection<SQLBookImpl> mokoto = DatabaseHelper.getInstance().queryBooksByTitle("新海誠");
+        Collection<SQLBookImpl> mokoto = DatabaseHelper.getInstance().queryBooksByAuthor("新海誠");
         return new ArrayList<>(mokoto);
     }
 }
