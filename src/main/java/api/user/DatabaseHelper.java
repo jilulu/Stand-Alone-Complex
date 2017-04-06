@@ -40,7 +40,7 @@ public class DatabaseHelper {
         private static final HashMap<Integer, String> codeMap;
 
         static {
-            codeMap = new HashMap<>();
+            codeMap = new HashMap<Integer, String>();
             codeMap.put(USER_NAME_EXISTS, "User name exists");
             codeMap.put(SUCCESSFUL, "Successful");
             codeMap.put(UNDETERMINED, "Undetermined");
@@ -160,7 +160,7 @@ public class DatabaseHelper {
     private IUser getUserByName(String username) {
         Connection connection = null;
         PreparedStatement statement = null;
-        HashSet<IUser> userHashSet = new HashSet<>();
+        final HashSet<IUser> userHashSet = new HashSet<IUser>();
         try {
             connection = DatabaseManager.getInstance().getDatabaseConnection();
             statement = connection.prepareStatement("SELECT * FROM Shinjin.dbo.[User] WHERE user_name=(?)");

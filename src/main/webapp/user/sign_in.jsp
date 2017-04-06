@@ -26,7 +26,7 @@
     </head>
     <body>
         <%@include file="../components/header.jsp" %>
-        
+
         <div class="container">
             <div class="row">
             <div class="col-md-4 col-md-offset-4">
@@ -47,5 +47,13 @@
             </div>
             </div>
         </div>
+
+        <!-- Bootstrap core JavaScript
+    ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
     </body>
 </html>

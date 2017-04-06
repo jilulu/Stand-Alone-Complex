@@ -19,11 +19,11 @@ public class SQLBookQueryProvider implements IBookQueryProvider {
     }
 
     @Override
-    public IQueryResult queryForBooks(String query, int offset, int limit) {
-        Collection<SQLBookImpl> sqlBooks = DatabaseHelper.getInstance().queryBooksByTitle(query, offset, limit);
-        int count = DatabaseHelper.getInstance().countBooksByTitle(query);
+    public IQueryResult queryForBooks(String query, final int offset, int limit) {
+        final Collection<SQLBookImpl> sqlBooks = DatabaseHelper.getInstance().queryBooksByTitle(query, offset, limit);
+        final int count = DatabaseHelper.getInstance().countBooksByTitle(query);
         return new IQueryResult() {
-            private List<SQLBookImpl> mBooks = new ArrayList<>(sqlBooks);
+            private List<SQLBookImpl> mBooks = new ArrayList<SQLBookImpl>(sqlBooks);
 
             @Override
             public List<? extends IBook> getBookList() {

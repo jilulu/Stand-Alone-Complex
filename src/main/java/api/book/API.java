@@ -36,7 +36,7 @@ public class API {
     }
 
     public static SearchResponse queryDouban(String queryValue, int start, int limit) throws IOException {
-        Map<String, String> queryMap = new HashMap<>();
+        Map<String, String> queryMap = new HashMap<String, String>();
         queryMap.put(API_QUERY_KEY, queryValue);
         if (start >= 0 && limit >= 0) {
             queryMap.put(API_QUERY_START, String.valueOf(start));

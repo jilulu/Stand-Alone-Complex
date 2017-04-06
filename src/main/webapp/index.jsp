@@ -11,7 +11,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="<%=Config.CINEMA_NAME%>">
     <meta name="author" content="James Ji">
-    <%@include file="components/fav-icon-fragment.jsp" %>
+    <%@include file="/components/fav-icon-fragment.jsp" %>
 
     <title><%=Config.CINEMA_NAME%>
     </title>

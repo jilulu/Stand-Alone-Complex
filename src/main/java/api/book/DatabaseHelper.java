@@ -21,9 +21,9 @@ import java.util.*;
 public class DatabaseHelper {
 
     // The contract: column names
-    static class Table {
+    public static class Table {
         static final String COLUMN_ID = "id";
-        static final String COLUMN_TITLE = "title";
+        public static final String COLUMN_TITLE = "title";
         static final String COLUMN_AUTHOR = "author";
         static final String COLUMN_PUBLISHER = "publisher";
         static final String COLUMN_SUMMARY = "summary";
@@ -65,7 +65,7 @@ public class DatabaseHelper {
 
         Connection connection = null;
         PreparedStatement statement = null;
-        HashSet<SQLBookImpl> sqlBookHashSet = new HashSet<>();
+        final HashSet<SQLBookImpl> sqlBookHashSet = new HashSet<SQLBookImpl>();
         try {
             connection = DatabaseManager.getInstance().getDatabaseConnection();
             statement = connection.prepareStatement(sqlQuery);
@@ -161,7 +161,7 @@ public class DatabaseHelper {
 
     public Collection<SQLBookImpl> queryBooksByTitle(String title, int offset, int limit) {
         if (offset < 0 || limit <= 0) {
-            return new HashSet<>();
+            return new HashSet<SQLBookImpl>();
         }
         //language=TSQL
         return executeGenericQuery("SELECT SortedTable.* FROM (" +
@@ -198,7 +198,7 @@ public class DatabaseHelper {
     public List<SQLBookImpl> queryAllBooks() {
         Connection connection = null;
         Statement statement = null;
-        List<SQLBookImpl> sqlBookList = new ArrayList<>();
+        final List<SQLBookImpl> sqlBookList = new ArrayList<SQLBookImpl>();
         try {
             connection = DatabaseManager.getInstance().getDatabaseConnection();
             statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
