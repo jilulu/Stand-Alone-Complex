@@ -6,12 +6,7 @@ import model.SQLPurchaseRecordImpl;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static api.purchaserecord.DatabaseHelper.Table.COLUMN_ID;
-import static api.purchaserecord.DatabaseHelper.Table.COLUMN_BOOK_ID;
-import static api.purchaserecord.DatabaseHelper.Table.COLUMN_USER_ID;
-import static api.purchaserecord.DatabaseHelper.Table.COLUMN_QUANTITY;
-import static api.purchaserecord.DatabaseHelper.Table.COLUMN_PURCHASE_STATUS;
-import static api.purchaserecord.DatabaseHelper.Table.COLUMN_PAYMENT_METHOD;
+import static api.purchaserecord.DatabaseHelper.Table.*;
 
 /**
  * Created by jamesji on 06/04/2017.
@@ -36,7 +31,8 @@ public class SqlPurchaseRecordAdapter {
             int quantity = resultSet.getInt(COLUMN_QUANTITY);
             int purchaseStatus = resultSet.getInt(COLUMN_PURCHASE_STATUS);
             int paymentMethod = resultSet.getInt(COLUMN_PAYMENT_METHOD);
-            IPurchaseRecord iPurchaseRecord = new SQLPurchaseRecordImpl(id, bookId, quantity, purchaseStatus, paymentMethod, userId);
+            double price = resultSet.getDouble(COLUMN_PRICE);
+            IPurchaseRecord iPurchaseRecord = new SQLPurchaseRecordImpl(id, bookId, quantity, purchaseStatus, paymentMethod, userId, price);
             mCallback.onPurchaseRecordAdapted(iPurchaseRecord);
         }
     }

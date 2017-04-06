@@ -9,8 +9,9 @@ import static api.purchaserecord.DatabaseHelper.Table.DEFINITION_PURCHASE_STATUS
  */
 public class SQLPurchaseRecordImpl implements IPurchaseRecord {
     private int id, bookId, userId, quantity, purchaseStatus, paymentMethod;
+    private double price;
 
-    public SQLPurchaseRecordImpl(int id, int bookId, int quantity, int purchaseStatus, int paymentMethod, int userId) {
+    public SQLPurchaseRecordImpl(int id, int bookId, int quantity, int purchaseStatus, int paymentMethod, int userId, double price) {
         if (quantity <= 0 || purchaseStatus < 0 || purchaseStatus >= DEFINITION_PURCHASE_STATUS.length ||
                 paymentMethod < 0 || paymentMethod >= DEFINITION_PAYMENT_RECORD.length) {
             throw new IllegalArgumentException("Illegal arguments supplied. ");
@@ -21,6 +22,7 @@ public class SQLPurchaseRecordImpl implements IPurchaseRecord {
         this.purchaseStatus = purchaseStatus;
         this.paymentMethod = paymentMethod;
         this.userId = userId;
+        this.price = price;
     }
 
     @Override
@@ -51,6 +53,11 @@ public class SQLPurchaseRecordImpl implements IPurchaseRecord {
     @Override
     public int getPaymentMethod() {
         return paymentMethod;
+    }
+
+    @Override
+    public double getPrice() {
+        return price;
     }
 
     @Override
@@ -85,7 +92,8 @@ public class SQLPurchaseRecordImpl implements IPurchaseRecord {
                 (userId == sqlPurchaseRecord.userId) &&
                 (quantity == sqlPurchaseRecord.quantity) &&
                 (purchaseStatus == sqlPurchaseRecord.purchaseStatus) &&
-                (paymentMethod == sqlPurchaseRecord.paymentMethod);
+                (paymentMethod == sqlPurchaseRecord.paymentMethod) &&
+                (Double.compare(price, sqlPurchaseRecord.price) == 0);
     }
 
     @Override
@@ -97,6 +105,7 @@ public class SQLPurchaseRecordImpl implements IPurchaseRecord {
         result = result * 31 + quantity;
         result = result * 31 + purchaseStatus;
         result = result * 31 + paymentMethod;
+        result = result * 31 + (int) Double.doubleToLongBits(price);
         return result;
     }
 }

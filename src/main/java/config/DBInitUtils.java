@@ -45,7 +45,8 @@ public class DBInitUtils {
                     (int) (Math.random() * 2 + 1),                              // purchase one or two copies of the book
                     (int) (DEFINITION_PURCHASE_STATUS.length * Math.random()),  // select one purchase status
                     (int) (DEFINITION_PAYMENT_RECORD.length * Math.random()),   // select one payment method
-                    james.getUserId()
+                    james.getUserId(),
+                    Double.parseDouble(sqlBook.getPrice())
             );
             api.purchaserecord.DatabaseHelper.getInstance().insertPurchaseRecord(iPurchaseRecord);
             if (callback != null) {

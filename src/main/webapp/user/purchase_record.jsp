@@ -2,8 +2,7 @@
 <%@ page import="api.user.UserManager" %>
 <%@ page import="model.IPurchaseRecord" %>
 <%@ page import="model.IUser" %>
-<%@ page import="java.util.Collection   " %>
-<%@ page import="java.util.Map" %>
+<%@ page import="java.util.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -45,29 +44,43 @@
         <thead>
         <tr>
             <th>ID</th>
-            <th>Book ID</th>
+            <th>Title</th>
             <th>Quantity</th>
             <th>Status</th>
             <th>Payment</th>
+            <th>Price</th>
         </tr>
         </thead>
         <tbody>
         <%
-            for (Map.Entry<IPurchaseRecord, String> purchaseRecordStringEntry : purchaseRecordTitleMap.entrySet()) {
-                IPurchaseRecord iPurchaseRecord = purchaseRecordStringEntry.getKey();
-                String title = purchaseRecordStringEntry.getValue();
+            // HashSet is used to prevent repeating purchase records. The interface Collection
+            // doesn't guarantee preserving the original order in which the entries are added.
+            // (And when the underlying class is a HashMap which uses hashing, it's almost
+            // definitely true that the original order would not be preserved.)
+            // Therefore it is required to sort the IPurchaseRecord's here, based on their ID's.
+            List<IPurchaseRecord> recordList = new ArrayList<IPurchaseRecord>(purchaseRecordTitleMap.keySet());
+            Collections.sort(recordList, new Comparator<IPurchaseRecord>() {
+                @Override
+                public int compare(IPurchaseRecord o1, IPurchaseRecord o2) {
+                    return o1.getId() - o2.getId();
+                }
+            });
+            for (IPurchaseRecord iPurchaseRecord : recordList) {
+                String title = purchaseRecordTitleMap.get(iPurchaseRecord);
         %>
         <tr>
-            <th><%=iPurchaseRecord.getId()%>
-            </th>
-            <th><%=title%>
-            </th>
-            <th><%=iPurchaseRecord.getQuantity()%>
-            </th>
-            <th><%=iPurchaseRecord.getPurchaseStatusString()%>
-            </th>
-            <th><%=iPurchaseRecord.getPaymentMethodString()%>
-            </th>
+            <td><%=iPurchaseRecord.getId()%>
+            </td>
+            <td><%=title%>
+            </td>
+            <td><%=iPurchaseRecord.getQuantity()%>
+            </td>
+            <td><%=iPurchaseRecord.getPurchaseStatusString()%>
+            </td>
+            <td><%=iPurchaseRecord.getPaymentMethodString()%>
+            </td>
+            <td><%=iPurchaseRecord.getPrice()%>
+            </td>
         </tr>
         <% } %>
         </tbody>

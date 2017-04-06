@@ -24,6 +24,7 @@ public class DatabaseHelper {
         static final String COLUMN_QUANTITY = "quantity";
         static final String COLUMN_PURCHASE_STATUS = "purchase_status";
         static final String COLUMN_PAYMENT_METHOD = "payment_method";
+        static final String COLUMN_PRICE = "price";
 
         public static final String[] DEFINITION_PURCHASE_STATUS = {
                 "purchased",
@@ -102,11 +103,19 @@ public class DatabaseHelper {
         try {
             connection = DatabaseManager.getInstance().getDatabaseConnection();
             statement = connection.prepareStatement(
-                    "SELECT user_pr.*, Book.title " +
-                            "FROM (" +
-                            "SELECT pr.id, pr.book_id, pr.quantity, pr.purchase_status, pr.payment_method " +
-                            "FROM PurchaseRecord AS pr INNER JOIN [User] ON pr.user_id = [User].id WHERE [User].id = (?)" +
-                            ") AS user_pr INNER JOIN Book ON user_pr.book_id = Book.id");
+                    "SELECT" +
+                            "  pr.id," +
+                            "  pr.book_id," +
+                            "  pr.quantity," +
+                            "  pr.purchase_status," +
+                            "  pr.payment_method," +
+                            "  pr.user_id," +
+                            "  pr.price," +
+                            "  Book.title " +
+                            "FROM PurchaseRecord AS pr" +
+                            "  JOIN [User] ON pr.user_id = [User].id" +
+                            "  JOIN Book ON pr.book_id = Book.id " +
+                            "WHERE pr.user_id = (?)");
             statement.setInt(1, userId);
             ResultSet resultSet = statement.executeQuery();
             SqlPurchaseRecordTitleMapAdapter adapter = new SqlPurchaseRecordTitleMapAdapter(new SqlPurchaseRecordTitleMapAdapter.Callback() {
@@ -143,12 +152,13 @@ public class DatabaseHelper {
         PreparedStatement statement = null;
         try {
             connection = DatabaseManager.getInstance().getDatabaseConnection();
-            statement = connection.prepareStatement("INSERT INTO Shinjin.dbo.PurchaseRecord VALUES (?,?,?,?,?)");
+            statement = connection.prepareStatement("INSERT INTO Shinjin.dbo.PurchaseRecord VALUES (?,?,?,?,?,?)");
             statement.setInt(1, iPurchaseRecord.getBookId());
             statement.setInt(2, iPurchaseRecord.getQuantity());
             statement.setInt(3, iPurchaseRecord.getPurchaseStatus());
             statement.setInt(4, iPurchaseRecord.getPaymentMethod());
             statement.setInt(5, iPurchaseRecord.getUserId());
+            statement.setDouble(6, iPurchaseRecord.getPrice());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

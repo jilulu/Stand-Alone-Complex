@@ -27,11 +27,12 @@ public class SqlPurchaseRecordTitleMapAdapter {
         while (resultSet.next()) {
             int id = resultSet.getInt(COLUMN_ID);
             int bookId = resultSet.getInt(COLUMN_BOOK_ID);
-//            int userId = resultSet.getInt(COLUMN_USER_ID);
+            int userId = resultSet.getInt(COLUMN_USER_ID);
             int quantity = resultSet.getInt(COLUMN_QUANTITY);
             int purchaseStatus = resultSet.getInt(COLUMN_PURCHASE_STATUS);
             int paymentMethod = resultSet.getInt(COLUMN_PAYMENT_METHOD);
-            IPurchaseRecord iPurchaseRecord = new SQLPurchaseRecordImpl(id, bookId, quantity, purchaseStatus, paymentMethod, -1);
+            double price = resultSet.getDouble(COLUMN_PRICE);
+            IPurchaseRecord iPurchaseRecord = new SQLPurchaseRecordImpl(id, bookId, quantity, purchaseStatus, paymentMethod, userId, price);
             String title = resultSet.getString(api.book.DatabaseHelper.Table.COLUMN_TITLE);
             mCallback.onPairAdapted(iPurchaseRecord, title);
         }

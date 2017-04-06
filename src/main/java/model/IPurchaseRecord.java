@@ -17,6 +17,8 @@ public interface IPurchaseRecord {
 
     int getPaymentMethod();
 
+    double getPrice();
+
     String getPurchaseStatusString();
 
     String getPaymentMethodString();
