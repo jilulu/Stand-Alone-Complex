@@ -21,8 +21,8 @@
                         <% } %>
                 ><a href="${pageContext.request.contextPath}/">Home</a></li>
                 <!-- Activate this tab only if uri matches that of the home page -->
-                <li><a href="#">New Arrivals</a></li>
-                <li><a href="#">Recommended Readings</a></li>
+                <%--<li><a href="#">New Arrivals</a></li>--%>
+                <%--<li><a href="#">Recommended Readings</a></li>--%>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">More<span class="caret"></span></a>

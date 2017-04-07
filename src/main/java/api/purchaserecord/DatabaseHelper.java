@@ -3,10 +3,7 @@ package api.purchaserecord;
 import api.DatabaseManager;
 import model.IPurchaseRecord;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -147,19 +144,28 @@ public class DatabaseHelper {
         return recordTitleMap.size() == 0 ? null : recordTitleMap;
     }
 
-    public void insertPurchaseRecord(IPurchaseRecord iPurchaseRecord) {
+    private void insertPurchaseRecord(IPurchaseRecord iPurchaseRecord, PurchaseRecordInsertedCallback callback) {
         Connection connection = null;
         PreparedStatement statement = null;
         try {
             connection = DatabaseManager.getInstance().getDatabaseConnection();
-            statement = connection.prepareStatement("INSERT INTO Shinjin.dbo.PurchaseRecord VALUES (?,?,?,?,?,?)");
+            statement = connection.prepareStatement("INSERT INTO Shinjin.dbo.PurchaseRecord VALUES (?,?,?,?,?,?)",
+                    Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, iPurchaseRecord.getBookId());
             statement.setInt(2, iPurchaseRecord.getQuantity());
             statement.setInt(3, iPurchaseRecord.getPurchaseStatus());
             statement.setInt(4, iPurchaseRecord.getPaymentMethod());
             statement.setInt(5, iPurchaseRecord.getUserId());
             statement.setDouble(6, iPurchaseRecord.getPrice());
-            statement.executeUpdate();
+            int affectedRows = statement.executeUpdate();
+            if (callback != null && affectedRows != 0) {
+                ResultSet generatedKeys = statement.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    int id = generatedKeys.getInt(1);
+                    callback.recordInserted(id);
+                }
+                generatedKeys.close();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -176,5 +182,24 @@ public class DatabaseHelper {
                 }
             }
         }
+    }
+
+    private interface PurchaseRecordInsertedCallback {
+        void recordInserted(int id);
+    }
+
+    public void insertPurchaseRecord(IPurchaseRecord iPurchaseRecord) {
+        insertPurchaseRecord(iPurchaseRecord, null);
+    }
+
+    int insertPurchaseRecordReturnId(IPurchaseRecord iPurchaseRecord) {
+        final int[] i = {0};
+        insertPurchaseRecord(iPurchaseRecord, new PurchaseRecordInsertedCallback() {
+            @Override
+            public void recordInserted(int id) {
+                i[0] = id;
+            }
+        });
+        return i[0];
     }
 }

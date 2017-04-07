@@ -18,7 +18,7 @@
     <!-- Bootstrap core CSS -->
     <link href="${pageContext.request.contextPath}/static/styles/bootstrap.css" rel="stylesheet">
 
-    <link href="${pageContext.request.contextPath}/static/styles/index.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/static/styles/base.css" rel="stylesheet">
 
     <script src="https://use.fontawesome.com/6a66321c71.js"></script>
 </head>

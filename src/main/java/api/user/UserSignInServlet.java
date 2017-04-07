@@ -17,18 +17,26 @@ public class UserSignInServlet extends HttpServlet {
         String username = request.getParameter("username");
         String userpassword = request.getParameter("userpassword");
         if (username == null || userpassword == null) {
-            response.sendError(400);
+//            response.sendError(400);
+            response.sendRedirect(response.encodeRedirectURL("/user/sign_in.jsp"));
             return;
         }
         IUser iUser = DatabaseHelper.getInstance().authUserByPassword(username, userpassword);
         if (iUser == null) {
-            response.sendError(400);
+//            response.sendError(400);
+            response.sendRedirect(response.encodeRedirectURL("/user/sign_in.jsp"));
             return;
         }
         String token = TokenUtils.getToken(iUser);
         request.getSession().setAttribute("username", username);
         request.getSession().setAttribute("token", token);
-        String redirectURL = response.encodeRedirectURL("/user/purchase");
+        String redirectURL;
+        String paramRedirectUrl = request.getParameter("redirect_url");
+        if (paramRedirectUrl != null && paramRedirectUrl.length() > 0) {
+            redirectURL = paramRedirectUrl;
+        } else {
+            redirectURL = response.encodeRedirectURL("/user/purchase");
+        }
         response.sendRedirect(redirectURL);
     }
 

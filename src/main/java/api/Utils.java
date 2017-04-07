@@ -1,5 +1,10 @@
 package api;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -52,5 +57,12 @@ public class Utils {
             e.printStackTrace();
             return 0;
         }
+    }
+
+    public static void forwardSignInPageWithSelfRedirect(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("redirect_url",
+                request.getRequestURL().append('?').append(request.getQueryString()));
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/user/sign_in.jsp");
+        requestDispatcher.forward(request, response);
     }
 }

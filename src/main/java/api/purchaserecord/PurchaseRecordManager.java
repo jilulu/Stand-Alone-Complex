@@ -35,4 +35,8 @@ public class PurchaseRecordManager {
     public Map<IPurchaseRecord, String> getUserPurchaseRecordWithTitle(int userId) {
         return DatabaseHelper.getInstance().getPurchaseRecordsWithTitleByUserId(userId);
     }
+
+    public int createPurchaseRecord(IPurchaseRecord record) {
+        return DatabaseHelper.getInstance().insertPurchaseRecordReturnId(record);
+    }
 }

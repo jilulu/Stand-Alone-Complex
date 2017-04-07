@@ -46,8 +46,8 @@
                             <h3 class="panel-title">Buy now</h3>
                         </div>
                         <div class="panel-body">
-                            <form action="index.jsp" method="get">
-                                <input type="hidden" name="id" value="<%=book.getId()%>">
+                            <form action="${pageContext.request.contextPath}/book/confirm" method="get">
+                                <input type="hidden" name="book_id" value="<%=book.getId()%>">
                                 <div class="row">
                                     <div class="col-xs-6">
                                         List price:

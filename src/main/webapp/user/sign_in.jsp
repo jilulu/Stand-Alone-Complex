@@ -20,7 +20,7 @@
 
         <!-- Bootstrap core CSS -->
         <link href="../static/styles/bootstrap.css" rel="stylesheet">
-        <link href="../static/styles/book-details.css" rel="stylesheet">
+        <link href="../static/styles/base.css" rel="stylesheet">
 
         <script src="https://use.fontawesome.com/6a66321c71.js"></script>
     </head>
@@ -31,6 +31,9 @@
             <div class="row">
             <div class="col-md-4 col-md-offset-4">
                 <form class="form-signin" action="${pageContext.request.contextPath}/user/auth" method="post">
+                    <%if (request.getAttribute("redirect_url") != null) {%>
+                    <input type="hidden" name="redirect_url" value="<%=request.getAttribute("redirect_url")%>"/>
+                    <%}%>
                     <h2 class="form-signin-heading"><%=Config.SIGNIN_TITLE%></h2>
                     <br>
                     <div class="form-group">

@@ -1,6 +1,4 @@
-body {
-    padding-top: 70px;
-}
+@import "base.css";
 
 img.logo {
     max-width: 100%;
