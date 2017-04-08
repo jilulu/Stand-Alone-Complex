@@ -4,10 +4,7 @@ import api.DatabaseManager;
 import model.IPurchaseRecord;
 
 import java.sql.*;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by jamesji on 05/04/2017.
@@ -53,15 +50,17 @@ public class DatabaseHelper {
         return mInstance;
     }
 
-    Collection<IPurchaseRecord> getPurchaseRecordsByUserId(int userId) {
+    private Collection<IPurchaseRecord> performGenericQuery(String sqlQueryEscaped, List<Integer> queryReplacements) {
         Connection connection = null;
         PreparedStatement statement = null;
 
         final Collection<IPurchaseRecord> purchaseRecords = new HashSet<IPurchaseRecord>();
         try {
             connection = DatabaseManager.getInstance().getDatabaseConnection();
-            statement = connection.prepareStatement("SELECT * FROM PurchaseRecord WHERE user_id=(?)");
-            statement.setInt(1, userId);
+            statement = connection.prepareStatement(sqlQueryEscaped);
+            for (int i = 0; i < queryReplacements.size(); i++) {
+                statement.setInt(i + 1, queryReplacements.get(i));
+            }
             ResultSet resultSet = statement.executeQuery();
             SqlPurchaseRecordAdapter adapter = new SqlPurchaseRecordAdapter(new SqlPurchaseRecordAdapter.Callback() {
                 @Override
@@ -90,6 +89,20 @@ public class DatabaseHelper {
             }
         }
         return purchaseRecords;
+    }
+
+    Collection<IPurchaseRecord> getPurchaseRecordsByUserId(int userId) {
+        //language=TSQL
+        return performGenericQuery("SELECT * FROM PurchaseRecord WHERE user_id=(?)",
+                Collections.singletonList(userId));
+    }
+
+    IPurchaseRecord getPurchaseRecordById(int recordId) {
+        //language=TSQL
+        Collection<IPurchaseRecord> purchaseRecords = performGenericQuery("SELECT * FROM PurchaseRecord WHERE id=(?)",
+                Collections.singletonList(recordId));
+        Iterator<IPurchaseRecord> iterator = purchaseRecords.iterator();
+        return iterator.hasNext() ? iterator.next() : null;
     }
 
     Map<IPurchaseRecord, String> getPurchaseRecordsWithTitleByUserId(int userId) {

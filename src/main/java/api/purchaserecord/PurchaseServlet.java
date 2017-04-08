@@ -50,8 +50,8 @@ public class PurchaseServlet extends HttpServlet {
                 Double.parseDouble(iBook.getPrice())
         );
         int recordId = PurchaseRecordManager.getManager().createPurchaseRecord(record);
-        response.getWriter().println(recordId);
-        response.getWriter().close();
+        String redirectURL = response.encodeRedirectURL("/user/purchase/" + recordId);
+        response.sendRedirect(redirectURL);
     }
 
     @Override

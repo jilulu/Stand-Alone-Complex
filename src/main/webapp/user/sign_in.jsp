@@ -19,8 +19,8 @@
         <title><%=Config.SIGNIN_TITLE%></title>
 
         <!-- Bootstrap core CSS -->
-        <link href="../static/styles/bootstrap.css" rel="stylesheet">
-        <link href="../static/styles/base.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/static/styles/bootstrap.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/static/styles/base.css" rel="stylesheet">
 
         <script src="https://use.fontawesome.com/6a66321c71.js"></script>
     </head>

@@ -36,6 +36,10 @@ public class PurchaseRecordManager {
         return DatabaseHelper.getInstance().getPurchaseRecordsWithTitleByUserId(userId);
     }
 
+    public IPurchaseRecord getUserPurchaseRecordById(int purchaseRecordId) {
+        return DatabaseHelper.getInstance().getPurchaseRecordById(purchaseRecordId);
+    }
+
     public int createPurchaseRecord(IPurchaseRecord record) {
         return DatabaseHelper.getInstance().insertPurchaseRecordReturnId(record);
     }

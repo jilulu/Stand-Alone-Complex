@@ -18,7 +18,7 @@
     <!-- Bootstrap core CSS -->
     <link href="${pageContext.request.contextPath}/static/styles/bootstrap.css" rel="stylesheet">
 
-    <link href="${pageContext.request.contextPath}/static/styles/base.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/static/styles/purchase_record.css" rel="stylesheet">
 
     <script src="https://use.fontawesome.com/6a66321c71.js"></script>
 </head>
@@ -40,7 +40,7 @@
         }
         if (purchaseRecordTitleMap != null && purchaseRecordTitleMap.size() > 0) {
     %>
-    <table class="table table-striped">
+    <table class="table table-striped table-hover">
         <thead>
         <tr>
             <th>ID</th>
@@ -68,7 +68,7 @@
             for (IPurchaseRecord iPurchaseRecord : recordList) {
                 String title = purchaseRecordTitleMap.get(iPurchaseRecord);
         %>
-        <tr>
+        <tr class="purchase-record" id="<%=iPurchaseRecord.getId()%>">
             <td><%=iPurchaseRecord.getId()%>
             </td>
             <td><%=title%>
@@ -100,5 +100,16 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script>
+    $(function () {
+        var record = $(".purchase-record");
+        record.click(function () {
+            var purchaseId = this.id;
+            window.location.href = "${pageContext.request.contextPath}/user/purchase/" + purchaseId;
+        });
+    })
+</script>
+
 </body>
 </html>

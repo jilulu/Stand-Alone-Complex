@@ -28,6 +28,10 @@
         <servlet-name>DoPurchase</servlet-name>
         <servlet-class>api.purchaserecord.PurchaseServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PurchaseRecordDetail</servlet-name>
+        <servlet-class>api.purchaserecord.PurchaseRecordDetailsServlet</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>Registration</servlet-name>
@@ -57,5 +61,10 @@
     <servlet-mapping>
         <servlet-name>DoPurchase</servlet-name>
         <url-pattern>/book/purchase</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>PurchaseRecordDetail</servlet-name>
+        <url-pattern>/user/purchase/*</url-pattern>
     </servlet-mapping>
 </web-app>
