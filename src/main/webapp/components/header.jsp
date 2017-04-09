@@ -62,7 +62,7 @@
                 </li>
 
                 <% } else { %>
-                <li><a href="${pageContext.request.contextPath}/user/sign_in.jsp">Login</a></li>
+                <li><a href="${pageContext.request.contextPath}/user/signin">Login</a></li>
                 <% } %>
             </ul>
         </div><!--/.nav-collapse -->

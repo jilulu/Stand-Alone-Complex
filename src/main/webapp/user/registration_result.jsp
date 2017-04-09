@@ -46,7 +46,7 @@
     <div class="jumbotron">
         <h1>Registration successful! </h1>
         <h2>Welcome to <%=Config.CINEMA_NAME_ANNOTATED%>, <%=username%>. </h2>
-        <h2><a href="${pageContext.request.contextPath}/user/sign_in.jsp">Click here</a> to log in</h2>
+        <h2><a href="${pageContext.request.contextPath}/user/signin">Click here</a> to log in</h2>
     </div>
 </div>
 <%} else {%>

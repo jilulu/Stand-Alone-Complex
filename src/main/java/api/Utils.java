@@ -62,7 +62,7 @@ public class Utils {
     public static void forwardSignInPageWithSelfRedirect(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("redirect_url",
                 request.getRequestURL().append('?').append(request.getQueryString()));
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/user/sign_in.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/user/signin");
         requestDispatcher.forward(request, response);
     }
 }

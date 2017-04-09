@@ -40,7 +40,7 @@ public class PurchaseRecordServlet extends HttpServlet {
             request.getRequestDispatcher("/user/purchase_record.jsp")
                     .forward(request,response);
         } else {
-            response.sendRedirect(response.encodeRedirectURL("/user/sign_in.jsp"));
+            response.sendRedirect(response.encodeRedirectURL("/user/signin"));
         }
     }
 }
