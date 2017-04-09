@@ -66,7 +66,7 @@ public class Utils {
             callbackUrl.append("?").append(query);
         }
         String callbackUrlEncoded = encodeURL(callbackUrl.toString());
-        String redirectUrl = response.encodeRedirectURL("/user/signin?redirect=" + callbackUrlEncoded);
+        String redirectUrl = response.encodeRedirectURL(request.getContextPath() + "/user/signin?redirect=" + callbackUrlEncoded);
         response.sendRedirect(redirectUrl);
     }
 

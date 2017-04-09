@@ -15,7 +15,7 @@ public class UserSignOutServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Object username = request.getSession().getAttribute("username");
         Object token = request.getSession().getAttribute("token");
-        final String redirectUrl = response.encodeRedirectURL("/");
+        final String redirectUrl = response.encodeRedirectURL(request.getContextPath() + "/");
         if (username != null) {
             request.getSession().removeAttribute("username");
         }

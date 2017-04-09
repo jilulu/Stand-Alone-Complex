@@ -36,7 +36,7 @@ public class UserAuthServlet extends HttpServlet {
             redirectURL = Utils.decodeURL(paramRedirectUrl);
         } else {
             // user purchase record page
-            redirectURL = response.encodeRedirectURL("/user/purchase");
+            redirectURL = response.encodeRedirectURL(request.getContextPath() + "/user/purchase");
         }
         response.sendRedirect(redirectURL);
     }

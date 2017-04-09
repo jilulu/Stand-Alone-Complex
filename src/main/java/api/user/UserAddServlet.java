@@ -32,7 +32,7 @@ public class UserAddServlet extends HttpServlet {
                 String token = TokenUtils.getToken(sqlUser);
                 request.getSession().setAttribute("username", userName);
                 request.getSession().setAttribute("token", token);
-                response.sendRedirect(response.encodeRedirectURL("/user/purchase"));
+                response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/user/purchase"));
                 break;
             default:
                 break;
