@@ -1,8 +1,7 @@
-<%@ page import="api.purchaserecord.PurchaseRecordManager" %>
-<%@ page import="api.user.UserManager" %>
-<%@ page import="model.IPurchaseRecord" %>
-<%@ page import="model.IUser" %>
-<%@ page import="java.util.*" %>
+<%--@elvariable id="username" type="java.lang.String"--%>
+<%--@elvariable id="recordList" type="java.util.List<model.IPurchaseRecord>"--%>
+<%--@elvariable id="purchaseRecordTitleMap" type="java.util.Map<model.IPurchaseRecord, java.lang.String>"--%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -28,70 +27,52 @@
 <div class="container">
     <div class="jumbotron">
         <h1>My Books</h1>
-        <h2><%=request.getSession().getAttribute("username")%>, welcome to <%=Config.CINEMA_NAME_ANNOTATED%>!
+        <h2>${username}, welcome to <%=Config.CINEMA_NAME_ANNOTATED%>!
             Here are all the books you ordered from us. </h2>
     </div>
 
-    <%
-        Map<IPurchaseRecord, String> purchaseRecordTitleMap = null;
-        IUser sessionUser = UserManager.getManager().getSessionUser(request);
-        if (sessionUser != null) {
-            purchaseRecordTitleMap = PurchaseRecordManager.getManager().getUserPurchaseRecordWithTitle(sessionUser.getUserId());
-        }
-        if (purchaseRecordTitleMap != null && purchaseRecordTitleMap.size() > 0) {
-    %>
-    <table class="table table-striped table-hover">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Quantity</th>
-            <th>Status</th>
-            <th>Payment</th>
-            <th>Price</th>
-        </tr>
-        </thead>
-        <tbody>
-        <%
-            // HashSet is used to prevent repeating purchase records. The interface Collection
-            // doesn't guarantee preserving the original order in which the entries are added.
-            // (And when the underlying class is a HashMap which uses hashing, it's almost
-            // definitely true that the original order would not be preserved.)
-            // Therefore it is required to sort the IPurchaseRecord's here, based on their ID's.
-            List<IPurchaseRecord> recordList = new ArrayList<IPurchaseRecord>(purchaseRecordTitleMap.keySet());
-            Collections.sort(recordList, new Comparator<IPurchaseRecord>() {
-                @Override
-                public int compare(IPurchaseRecord o1, IPurchaseRecord o2) {
-                    return o1.getId() - o2.getId();
-                }
-            });
-            for (IPurchaseRecord iPurchaseRecord : recordList) {
-                String title = purchaseRecordTitleMap.get(iPurchaseRecord);
-        %>
-        <tr class="purchase-record" id="<%=iPurchaseRecord.getId()%>">
-            <td><%=iPurchaseRecord.getId()%>
-            </td>
-            <td><%=title%>
-            </td>
-            <td><%=iPurchaseRecord.getQuantity()%>
-            </td>
-            <td><%=iPurchaseRecord.getPurchaseStatusString()%>
-            </td>
-            <td><%=iPurchaseRecord.getPaymentMethodString()%>
-            </td>
-            <td><%=iPurchaseRecord.getPrice()%>
-            </td>
-        </tr>
-        <% } %>
-        </tbody>
-    </table>
-    <% } else { %>
-    <div class="alert alert-danger" role="alert">
-        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-        <span class="sr-only">Error:</span>
-        We are encountering some error delivering your purchase records.
-    </div>
-    <% } %>
+    <c:choose>
+        <c:when test="${purchaseRecordTitleMap != null && purchaseRecordTitleMap.size() > 0}">
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Quantity</th>
+                    <th>Status</th>
+                    <th>Payment</th>
+                    <th>Price</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <c:forEach items="${recordList}" var="record">
+                    <tr class="purchase-record" id="${record.id}">
+                        <td>${record.id}
+                        </td>
+                        <td>${purchaseRecordTitleMap.get(record)}
+                        </td>
+                        <td>${record.quantity}
+                        </td>
+                        <td>${record.purchaseStatusString}
+                        </td>
+                        <td>${record.paymentMethodString}
+                        </td>
+                        <td>${record.price}
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </c:when>
+        <c:otherwise>
+            <div class="alert alert-danger" role="alert">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="sr-only">Error:</span>
+                We are encountering some error delivering your purchase records.
+            </div>
+        </c:otherwise>
+    </c:choose>
 </div>
 
 <!-- Bootstrap core JavaScript

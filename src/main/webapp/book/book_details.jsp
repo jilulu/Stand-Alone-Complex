@@ -1,14 +1,7 @@
+<%--@elvariable id="book" type="model.IBook"--%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="config.Config" %>
-<%@ page import="model.IBook" %>
-<%@ page import="contentprovider.bookdetail.BookDetailProviderFactory" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%
-    String id = request.getParameter("id");
-    IBook book = BookDetailProviderFactory.getProvider().provideBookDetails(id);
-%>
-<%!
-    private final static int PURCHASE_QUANTITY_MAX = 30;
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,28 +9,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="<%=book.getTitle()%>">
+    <meta name="description" content="${book.title}">
     <meta name="author" content="James Ji">
-    <%@include file="components/fav-icon-fragment.jsp" %>
+    <%@include file="/components/fav-icon-fragment.jsp" %>
 
-    <title><%=book.getTitle()%></title>
+    <title>${book.title}</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="static/styles/bootstrap.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/static/styles/bootstrap.css" rel="stylesheet">
 
-    <link href="static/styles/book-details.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/static/styles/book-details.css" rel="stylesheet">
 </head>
 <body>
 
-<%@include file="components/header.jsp" %>
+<%@include file="../components/header.jsp" %>
 
 <div class="container">
     <div class="row">
         <div class="book-cover col-sm-3 col-xs-12">
-            <img src="<%=book.getCoverUrl()%>" alt="Book cover">
+            <img src="${book.coverUrl}" alt="Book cover">
         </div>
         <div class="book-brief-info col-sm-9 col-xs-12">
-            <h2><%=book.getTitle()%>
+            <h2>${book.title}
             </h2>
             <div class="row">
                 <div class="col-sm-4 col-sm-push-8 purchase-card">
@@ -47,23 +40,23 @@
                         </div>
                         <div class="panel-body">
                             <form action="${pageContext.request.contextPath}/book/confirm" method="get">
-                                <input type="hidden" name="book_id" value="<%=book.getId()%>">
+                                <input type="hidden" name="book_id" value="${book.id}">
                                 <div class="row">
                                     <div class="col-xs-6">
                                         List price:
                                     </div>
                                     <div class="col-xs-6">
-                                        <span class="book-price"><%=book.getPrice()%></span>
+                                        <span class="book-price">${book.price}</span>
                                     </div>
 
                                     <div class="col-xs-8">Quantity:</div>
                                     <select name="quantity" autocomplete="off" title="Quantity" class="col-xs-3">
-                                        <% for (int i = 0; i < PURCHASE_QUANTITY_MAX; i++) { %>
-                                        <option value="<%=(i + 1)%>"
-                                                <%=i == 0 ? "selected" : ""%>>
-                                            <%=(i + 1)%>
-                                        </option>
-                                        <% } %>
+                                        <%--@elvariable id="purchaseQuantityMax" type="Integer"--%>
+                                        <c:forEach var="i" begin="1" end="${purchaseQuantityMax}">
+                                            <option value="${i}" <c:if test="${i==1}">selected</c:if>>
+                                                ${i}
+                                            </option>
+                                        </c:forEach>
                                     </select>
 
                                 </div>
@@ -89,11 +82,11 @@
                         About the book
                     </h3>
                     <div class="col-xs-3"><b>Author</b></div>
-                    <div class="col-xs-9"><%=book.getAuthor()%></div>
+                    <div class="col-xs-9">${book.author}</div>
                     <div class="col-xs-3"><b>ISBN</b></div>
-                    <div class="col-xs-9"><%=book.getIsbn()%></div>
+                    <div class="col-xs-9">${book.isbn}</div>
                     <div class="col-xs-3"><b>Publisher</b></div>
-                    <div class="col-xs-9"><%=book.getImprint()%></div>
+                    <div class="col-xs-9">${book.imprint}</div>
                 </div>
             </div>
         </div>
@@ -102,7 +95,7 @@
 
     <div class="row">
         <h3>Summary of the book</h3>
-        <blockquote><%=book.getSummary()%></blockquote>
+        <blockquote>${book.summary}</blockquote>
     </div>
 </div>
 

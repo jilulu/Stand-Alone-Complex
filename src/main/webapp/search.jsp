@@ -22,8 +22,8 @@
     </title>
 
     <!-- Bootstrap core CSS -->
-    <link href="static/styles/bootstrap.css" rel="stylesheet">
-    <link href="static/styles/search.css" rel="stylesheet"/>
+    <link href="${pageContext.request.contextPath}/static/styles/bootstrap.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/static/styles/search.css" rel="stylesheet"/>
 </head>
 <body>
 <%@include file="components/header.jsp" %>
@@ -52,13 +52,13 @@
     %>
     <div class="row search-result">
         <div class="col-sm-3">
-            <a href="${pageContext.request.contextPath}/book-details.jsp?id=<%=iBook.getId()%>">
+            <a href="${pageContext.request.contextPath}/book/details?id=<%=iBook.getId()%>">
                 <img class="book-cover" src="<%=iBook.getCoverUrl()%>" alt="Book cover"/>
             </a>
         </div>
         <div class="col-sm-9">
             <h3>
-                <a href="${pageContext.request.contextPath}/book-details.jsp?id=<%=iBook.getId()%>">
+                <a href="${pageContext.request.contextPath}/book/details?id=<%=iBook.getId()%>">
                     <%=iBook.getTitle()%>
                 </a>
             </h3>

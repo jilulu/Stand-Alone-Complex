@@ -17,16 +17,16 @@
     </title>
 
     <!-- Bootstrap core CSS -->
-    <link href="static/styles/bootstrap.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/static/styles/bootstrap.css" rel="stylesheet">
 
-    <link href="static/styles/index.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/static/styles/index.css" rel="stylesheet">
 
     <script src="https://use.fontawesome.com/6a66321c71.js"></script>
 </head>
 
 <body>
 
-<%@include file="components/header.jsp" %>
+<%@include file="/components/header.jsp" %>
 
 <div class="container">
     <div class="recommendations">
@@ -139,7 +139,7 @@
     $(function () {
         $('.details-action-button').click(function () {
             var bookId = $(this).parents('.new-arrival-card').attr('id');
-            window.location.href = "${pageContext.request.contextPath}/book-details.jsp?id=" + bookId;
+            window.location.href = "${pageContext.request.contextPath}/book/details?id=" + bookId;
         });
     })
 </script>

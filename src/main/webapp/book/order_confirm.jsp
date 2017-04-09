@@ -1,13 +1,10 @@
-<%
-    int bookId = Integer.parseInt(request.getParameter("bookid"));
-    int quantity = Integer.parseInt(request.getParameter("quantity"));
-
-    IBook iBook = BookDetailProviderFactory.getProvider().provideBookDetails(String.valueOf(bookId));
-%>
+<%--@elvariable id="book" type="model.IBook"--%>
+<%--@elvariable id="quantity" type="java.lang.Integer"--%>
+<%--@elvariable id="bookid" type="java.lang.Integer"--%>
+<%--@elvariable id="paymentMethodList" type="java.util.List<java.lang.String>"--%>
 <%@ page import="config.Config" %>
-<%@ page import="model.IBook" %>
-<%@ page import="contentprovider.bookdetail.BookDetailProviderFactory" %>
-<%@ page import="api.purchaserecord.DatabaseHelper" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -42,13 +39,14 @@
             <div class="panel-heading">Delivery and Payment information</div>
             <div class="panel-body" style="padding: 20px;">
                 <h4>Thank you for buying from us! We need some more information to complete your order.</h4>
-                <form class="form-horizontal row" action="${pageContext.request.contextPath}/book/purchase" method="post">
-                    <input type="hidden" name="bookid" value="<%=bookId%>"/>
+                <form class="form-horizontal row" action="${pageContext.request.contextPath}/book/purchase"
+                      method="post">
+                    <input type="hidden" name="bookid" value="${bookid}"/>
                     <div class="form-group">
                         <label for="qty" class="col-sm-2 control-label">Quantity</label>
                         <div class="col-sm-10">
                             <select class="form-control" disabled id="qty" name="quantity">
-                                <option value="<%=quantity%>"><%=quantity%>
+                                <option value="${quantity}">${quantity}
                                 </option>
                             </select>
                         </div>
@@ -58,12 +56,9 @@
                         <label for="pmtd" class="col-sm-2 control-label">Payment Method</label>
                         <div class="col-sm-10">
                             <select class="form-control" id="pmtd" name="payment_method">
-                                <% String[] definition_payment_record = DatabaseHelper.Table.DEFINITION_PAYMENT_RECORD;
-                                    for (int i = 0; i < definition_payment_record.length; i++) {
-                                        String method = definition_payment_record[i]; %>
-                                <option value="<%=i%>"><%=method%>
-                                </option>
-                                <%}%>
+                                <c:forEach begin="0" end="${paymentMethodList.size()-1}" var="i">
+                                    <option value="${i}">${paymentMethodList.get(i)}</option>
+                                </c:forEach>
                             </select>
                         </div>
                     </div>
@@ -96,11 +91,11 @@
                         <b>List price</b>
                     </div>
                     <div class="col-xs-6">
-                        <span class="book-price"><%=iBook.getPrice()%></span>
+                        <span class="book-price">${book.price}</span>
                     </div>
 
                     <div class="col-xs-8"><b>Quantity</b></div>
-                    <div class="col-xs-4 book-quantity"><%=quantity%>
+                    <div class="col-xs-4 book-quantity">${book.price}
                     </div>
 
                     <hr class="col-xs-12 content-divider"/>
@@ -109,7 +104,10 @@
                         <b>Total amount</b>
                     </div>
                     <div class="col-xs-6">
-                        <span class="book-price"><%=Double.parseDouble(iBook.getPrice()) * quantity%></span>
+                        <span class="book-price">
+                            <fmt:parseNumber var="price" type="number" value="${book.price}"/>
+                            <c:out value="${price * quantity}"/>
+                        </span>
                     </div>
 
                     <hr class="col-xs-12 content-divider">
@@ -131,7 +129,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <script>
-    $(function() {
+    $(function () {
         $(".buybuybuybutton").click(function () {
             $("form").submit()
         });
