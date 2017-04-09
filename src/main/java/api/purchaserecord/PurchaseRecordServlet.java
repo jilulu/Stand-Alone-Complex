@@ -22,19 +22,20 @@ public class PurchaseRecordServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         IUser sessionUser = UserManager.getManager().getSessionUser(request);
-        String redirectURL;
         if (sessionUser != null) {
             Map<IPurchaseRecord, String> purchaseRecordTitleMap =
                     PurchaseRecordManager.getManager().getUserPurchaseRecordWithTitle(sessionUser.getUserId());
-            List<IPurchaseRecord> recordList = new ArrayList<IPurchaseRecord>(purchaseRecordTitleMap.keySet());
-            Collections.sort(recordList, new Comparator<IPurchaseRecord>() {
-                @Override
-                public int compare(IPurchaseRecord o1, IPurchaseRecord o2) {
-                    return o1.getId() - o2.getId();
-                }
-            });
-            request.setAttribute("purchaseRecordTitleMap", purchaseRecordTitleMap);
-            request.setAttribute("recordList", recordList);
+            if (purchaseRecordTitleMap != null) {
+                List<IPurchaseRecord> recordList = new ArrayList<IPurchaseRecord>(purchaseRecordTitleMap.keySet());
+                Collections.sort(recordList, new Comparator<IPurchaseRecord>() {
+                    @Override
+                    public int compare(IPurchaseRecord o1, IPurchaseRecord o2) {
+                        return o1.getId() - o2.getId();
+                    }
+                });
+                request.setAttribute("purchaseRecordTitleMap", purchaseRecordTitleMap);
+                request.setAttribute("recordList", recordList);
+            }
             request.setAttribute("username", sessionUser.getUserName());
 
             request.getRequestDispatcher("/user/purchase_record.jsp")

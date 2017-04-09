@@ -1,10 +1,10 @@
 package api;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 /**
@@ -60,9 +60,31 @@ public class Utils {
     }
 
     public static void forwardSignInPageWithSelfRedirect(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("redirect_url",
-                request.getRequestURL().append('?').append(request.getQueryString()));
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/user/signin");
-        requestDispatcher.forward(request, response);
+        StringBuilder callbackUrl = new StringBuilder(request.getRequestURL());
+        String query = request.getQueryString();
+        if (query != null && query.length() > 0) {
+            callbackUrl.append("?").append(query);
+        }
+        String callbackUrlEncoded = encodeURL(callbackUrl.toString());
+        String redirectUrl = response.encodeRedirectURL("/user/signin?redirect=" + callbackUrlEncoded);
+        response.sendRedirect(redirectUrl);
+    }
+
+    static String encodeURL(String url) {
+        try {
+            return java.net.URLEncoder.encode(url, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String decodeURL(String encodedUrl) {
+        try {
+            return java.net.URLDecoder.decode(encodedUrl, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

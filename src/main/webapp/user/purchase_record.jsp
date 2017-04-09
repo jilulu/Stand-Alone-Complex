@@ -32,7 +32,7 @@
     </div>
 
     <c:choose>
-        <c:when test="${purchaseRecordTitleMap != null && purchaseRecordTitleMap.size() > 0}">
+        <c:when test="${not empty purchaseRecordTitleMap && purchaseRecordTitleMap.size() > 0}">
             <table class="table table-striped table-hover">
                 <thead>
                 <tr>
@@ -66,10 +66,25 @@
             </table>
         </c:when>
         <c:otherwise>
-            <div class="alert alert-danger" role="alert">
-                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                <span class="sr-only">Error:</span>
-                We are encountering some error delivering your purchase records.
+            <div class="alert alert-info alert-dismissible">
+                Seems like you haven't ordered any books from us!
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-sm-push-3">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Our suggestions
+                        </div>
+                        <div class="panel-body">
+                            <a href="${pageContext.request.contextPath}/">
+                                <div class="h4 home-forward">Go to homepage to see some of our recommendations! </div>
+                            </a>
+                            <a href="${pageContext.request.contextPath}/">
+                            <img src="${pageContext.request.contextPath}/static/img/homepage.jpg" alt="Go to home page" class="img-rounded img-thumbnail">
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </c:otherwise>
     </c:choose>

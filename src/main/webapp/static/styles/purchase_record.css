@@ -3,3 +3,8 @@
 .purchase-record {
     cursor: pointer;
 }
+
+.home-forward {
+    text-align: center;
+    cursor: pointer;
+}

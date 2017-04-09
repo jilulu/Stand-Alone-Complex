@@ -9,8 +9,12 @@
         <servlet-class>api.user.UserSignInServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Registration</servlet-name>
-        <servlet-class>api.user.UserRegistrationServlet</servlet-class>
+        <servlet-name>SignUp</servlet-name>
+        <servlet-class>api.user.UserRegisterServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Reg</servlet-name>
+        <servlet-class>api.user.UserAddServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Auth</servlet-name>
@@ -42,12 +46,17 @@
     </servlet>
 
     <servlet-mapping>
+        <servlet-name>SignUp</servlet-name>
+        <url-pattern>/user/signup</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
         <servlet-name>SignIn</servlet-name>
         <url-pattern>/user/signin</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
-        <servlet-name>Registration</servlet-name>
+        <servlet-name>Reg</servlet-name>
         <url-pattern>/user/add</url-pattern>
     </servlet-mapping>
 

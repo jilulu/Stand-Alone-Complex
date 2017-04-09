@@ -1,5 +1,6 @@
 package api.user;
 
+import api.Utils;
 import model.IUser;
 
 import javax.servlet.ServletException;
@@ -30,9 +31,9 @@ public class UserAuthServlet extends HttpServlet {
         request.getSession().setAttribute("username", username);
         request.getSession().setAttribute("token", token);
         String redirectURL;
-        String paramRedirectUrl = request.getParameter("redirect_url");
+        String paramRedirectUrl = request.getParameter("redirect");
         if (paramRedirectUrl != null && paramRedirectUrl.length() > 0) {
-            redirectURL = paramRedirectUrl;
+            redirectURL = Utils.decodeURL(paramRedirectUrl);
         } else {
             // user purchase record page
             redirectURL = response.encodeRedirectURL("/user/purchase");

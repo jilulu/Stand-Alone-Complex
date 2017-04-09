@@ -141,6 +141,12 @@
             var bookId = $(this).parents('.new-arrival-card').attr('id');
             window.location.href = "${pageContext.request.contextPath}/book/details?id=" + bookId;
         });
+    });
+    $(function () {
+        $('.add-cart-action-button').click(function () {
+            var bookId = $(this).parents('.new-arrival-card').attr('id');
+            window.location.href = "${pageContext.request.contextPath}/book/confirm?quantity=1&book_id=" + bookId;
+        })
     })
 </script>
 

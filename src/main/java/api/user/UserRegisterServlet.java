@@ -10,14 +10,11 @@ import java.io.IOException;
  * Created by jamesji on 09/04/2017.
  * Copyright © 2017 James Ji. All rights reserved.
  */
-public class UserSignInServlet extends HttpServlet {
+public class UserRegisterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String redirect = request.getParameter("redirect");
-        if (redirect != null) {
-            request.setAttribute("redirect", redirect);
-        }
-        request.getRequestDispatcher("/user/signin_v2.jsp").forward(request, response);
+        request.getRequestDispatcher("/user/signup_v2.jsp")
+                .forward(request, response);
     }
 
     @Override

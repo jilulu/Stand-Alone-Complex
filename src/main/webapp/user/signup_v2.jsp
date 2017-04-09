@@ -36,7 +36,7 @@
 
         <div class="panel panel-default">
             <div class="panel-body">
-                <h3>Sign In</h3>
+                <h3>Sign Up</h3>
 
                 <hr/>
 
@@ -47,13 +47,7 @@
                     </div>
                 </c:if>
 
-                <form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/user/auth">
-
-                    <%--@elvariable id="redirect" type="java.lang.String"--%>
-                    <c:if test="${not empty redirect}">
-                        <input type="hidden" name="redirect" value="${redirect}"/>
-                    </c:if>
-
+                <form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/user/add">
                     <div class="form-group">
                         <label for="username" class="col-sm-2 control-label">Username</label>
                         <div class="col-sm-10">
@@ -69,15 +63,10 @@
 
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-default">Sign in</button>
+                            <button type="submit" class="btn btn-default">Sign up</button>
                         </div>
                     </div>
                 </form>
-
-                <div class="new-user-divider-breaking">
-                    <h5>Maidragon's new User? </h5>
-                </div>
-                <button class="btn btn-info new-user-button">Create a new account</button>
             </div>
         </div>
     </div>
@@ -89,13 +78,5 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<script>
-    $(function () {
-        $(".new-user-button").click(function () {
-            window.location.href = "${pageContext.request.contextPath}/user/signup";
-        })
-    })
-</script>
 </body>
 </html>
