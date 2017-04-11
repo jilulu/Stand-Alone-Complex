@@ -167,7 +167,7 @@ public class DatabaseHelper {
         return executeGenericQuery("SELECT SortedTable.* FROM (" +
                         "SELECT r.*, ROW_NUMBER() OVER (ORDER BY ID) AS RowNum " +
                         "FROM Shinjin.dbo.Book AS r WHERE r.title LIKE (?)" +
-                        ") AS SortedTable WHERE SortedTable.RowNum BETWEEN " + offset + " AND " + limit,
+                        ") AS SortedTable WHERE SortedTable.RowNum BETWEEN " + (offset + 1) + " AND " + (offset + limit),
                 "%" + title + "%");
     }
 

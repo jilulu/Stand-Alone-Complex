@@ -87,4 +87,24 @@ public class Utils {
         }
         return null;
     }
+
+    public static String getSearchLinkPreviousPage(String query, int offset, int total, int resultPerPage) {
+        if (offset == 0 || total <= resultPerPage) {
+            return null;
+        } else if (offset - resultPerPage < 0) {
+            offset = 0;
+        } else {
+            offset -= resultPerPage;
+        }
+        return "/book/search?q=" + query + "&offset=" + offset;
+    }
+
+    public static String getSearchLinkNextPage(String query, int offset, int total, int resultPerPage) {
+        if (offset + resultPerPage >= total || resultPerPage >= total) {
+            return null;
+        } else {
+            offset += resultPerPage;
+            return "/book/search?q=" + query + "&offset=" + offset;
+        }
+    }
 }

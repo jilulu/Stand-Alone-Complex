@@ -80,7 +80,7 @@
                     <div class="row">
                         <div class="book-detail-row">
                             <div class="col-sm-6"><b>Amount Paid</b></div>
-                            <div class="col-sm-6">${purchase_record.price}</div>
+                            <div class="col-sm-6">${purchase_record.price * purchase_record.quantity}</div>
                         </div>
                     </div>
                     <div class="row">
