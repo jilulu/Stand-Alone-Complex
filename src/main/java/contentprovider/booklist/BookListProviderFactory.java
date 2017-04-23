@@ -4,7 +4,7 @@ package contentprovider.booklist;
  * Created by jamesji on 15/03/2017.
  */
 public class BookListProviderFactory {
-    private static volatile IBookListProvider arrivalProvider, recommendationProvider;
+    private static volatile IBookListProvider arrivalProvider, recommendationProvider, allProvider;
 
     private BookListProviderFactory() {
 
@@ -30,5 +30,16 @@ public class BookListProviderFactory {
             }
         }
         return recommendationProvider;
+    }
+
+    public static IBookListProvider getAllProvider() {
+        if (allProvider == null) {
+            synchronized (BookListProviderFactory.class) {
+                if (allProvider == null) {
+                    allProvider = new SQLAllBookListProvider();
+                }
+            }
+        }
+        return allProvider;
     }
 }

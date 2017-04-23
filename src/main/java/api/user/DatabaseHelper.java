@@ -2,6 +2,7 @@ package api.user;
 
 import api.DatabaseManager;
 import model.IUser;
+import model.IAdmin;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -77,6 +78,10 @@ public class DatabaseHelper {
         static final String COLUMN_USER_NAME = "user_name";
         static final String COLUMN_USER_PASSWORD = "user_password";
         static final String COLUMN_PURCHASE_RECORD = "purchase_record";
+
+        static final String COLUMN_ADMIN_USER_NAME = "username";
+        static final String COLUMN_ADMIN_PASSWORD = "password";
+        static final String COLUMN_ADMIN_EMAIL = "email";
     }
 
     public StatusCode addUser(IUser user) {
@@ -214,5 +219,58 @@ public class DatabaseHelper {
         return user != null
                 && user.getUserName() != null && user.getUserName().length() > 0
                 && user.getUserPassword() != null && user.getUserPassword().length() > 0;
+    }
+
+    private IAdmin getAdminByName(String username) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        final HashSet<IAdmin> userHashSet = new HashSet<IAdmin>();
+        try {
+            connection = DatabaseManager.getInstance().getDatabaseConnection();
+            statement = connection.prepareStatement("SELECT * FROM Shinjin.dbo.admin WHERE username=(?)");
+            statement.setString(1, username);
+            ResultSet resultSet = statement.executeQuery();
+            SqlAdminAdapter adapter = new SqlAdminAdapter(new SqlAdminAdapter.Callback() {
+                @Override
+                public void onAdminAdapted(IAdmin admin) {
+                    userHashSet.add(admin);
+                }
+            });
+            adapter.adaptAdmin(resultSet);
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    // ignored
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    // ignored
+                }
+            }
+        }
+        Iterator<IAdmin> iterator = userHashSet.iterator();
+        if (iterator.hasNext()) {
+            return iterator.next();
+        } else {
+            return null;
+        }
+    }
+
+    public IAdmin authAdminByPassword(String username, String userpassword) {
+        IAdmin user = getAdminByName(username);
+        return user == null || !user.getUserPassword().equals(userpassword) ? null : user;
+    }
+
+    public IAdmin authAdminByToken(String username, String token) {
+        IAdmin user = getAdminByName(username);
+        return user == null || !TokenUtils.getToken(user).equals(token) ? null : user;
     }
 }

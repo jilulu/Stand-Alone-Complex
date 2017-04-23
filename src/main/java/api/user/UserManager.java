@@ -1,6 +1,7 @@
 package api.user;
 
 import model.IUser;
+import model.IAdmin;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -36,6 +37,19 @@ public class UserManager {
             return null;
         } else {
             return DatabaseHelper.getInstance().authUserByToken(usernameAttribute, userTokenAttribute);
+        }
+
+    }
+
+    public IAdmin getAdminSessionUser(HttpServletRequest request) {
+        String usernameAttribute = (String) request.getSession().getAttribute("admin_username");
+        String userTokenAttribute = (String) request.getSession().getAttribute("admin_token");
+
+        // Avoid hitting database with null values
+        if (usernameAttribute == null || userTokenAttribute == null) {
+            return null;
+        } else {
+            return DatabaseHelper.getInstance().authAdminByToken(usernameAttribute, userTokenAttribute);
         }
 
     }

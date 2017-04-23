@@ -10,6 +10,7 @@ public class Config {
     public static final int FREE_SHIPPING_OFFSET = 99;
 
     public static final String LOGIN_NAME = "Login";
+    public static final String ADMINISTRATION = "Administration";
 
     public static final String EMAIL = "Email";
     public static final String PASSWORD = "Password";
@@ -31,4 +32,10 @@ public class Config {
     public static final String SIGNUP_LASTNAME_LABEL = "Last name";
     public static final String SIGNUP_FIRSTNAME_LABEL = "First name";
     public static final String SIGNUP_SIGNUP_BUTTON = "Sign me up!";
+
+    // admin page
+    public static final String ADMIN_TITLE = "Admin";
+    public static final String ADMIN_SIGNIN_TITLE = "Admin Sign In";
+    public static final String ADMIN_SIGNOUT_BUTTON = "Sign out";
+
 }

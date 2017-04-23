@@ -1,6 +1,7 @@
 package api.user;
 
 import model.IUser;
+import model.IAdmin;
 import org.apache.commons.codec.digest.DigestUtils;
 
 /**
@@ -12,6 +13,13 @@ public class TokenUtils {
     private static final String SALT = "MaidDragonLovesKobayashi";
 
     static String getToken(IUser user) {
+        assert user.getUserName() != null;
+        assert user.getUserPassword() != null;
+        String unencrypted = user.getUserName() + user.getUserPassword() + SALT;
+        return DigestUtils.sha256Hex(unencrypted);
+    }
+
+    static String getToken(IAdmin user) {
         assert user.getUserName() != null;
         assert user.getUserPassword() != null;
         String unencrypted = user.getUserName() + user.getUserPassword() + SALT;

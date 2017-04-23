@@ -21,12 +21,20 @@
         <servlet-class>api.user.UserAuthServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>AdminAuth</servlet-name>
+        <servlet-class>api.user.AdminAuthServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>PurchaseRecord</servlet-name>
         <servlet-class>api.purchaserecord.PurchaseRecordServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SignOut</servlet-name>
         <servlet-class>api.user.UserSignOutServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminSignOut</servlet-name>
+        <servlet-class>api.user.AdminSignOutServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>BookPurchase</servlet-name>
@@ -41,12 +49,32 @@
         <servlet-class>api.purchaserecord.PurchaseRecordDetailsServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>PurchaseRecordAction</servlet-name>
+        <servlet-class>api.purchaserecord.PurchaseRecordActionServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>BookDetail</servlet-name>
         <servlet-class>api.book.BookDetailServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>BookSearch</servlet-name>
-        <servlet-class>api.book.BookSearchServlet</servlet-class>
+        <servlet-name>AdminAddBook</servlet-name>
+        <servlet-class>api.book.AdminBookAddServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminUpdateBook</servlet-name>
+        <servlet-class>api.book.AdminBookUpdateServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminDeleteBook</servlet-name>
+        <servlet-class>api.book.AdminBookDeleteServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminViewRefund</servlet-name>
+        <servlet-class>api.purchaserecord.AdminRefundViewServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminApproveRefund</servlet-name>
+        <servlet-class>api.purchaserecord.AdminRefundApproveServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -70,6 +98,11 @@
     </servlet-mapping>
 
     <servlet-mapping>
+        <servlet-name>AdminAuth</servlet-name>
+        <url-pattern>/admin/auth</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
         <servlet-name>PurchaseRecord</servlet-name>
         <url-pattern>/user/purchase</url-pattern>
     </servlet-mapping>
@@ -77,6 +110,11 @@
     <servlet-mapping>
         <servlet-name>SignOut</servlet-name>
         <url-pattern>/user/logout</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>AdminSignOut</servlet-name>
+        <url-pattern>/admin/logout</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
@@ -95,13 +133,38 @@
     </servlet-mapping>
 
     <servlet-mapping>
+        <servlet-name>PurchaseRecordAction</servlet-name>
+        <url-pattern>/user/purchaseaction</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
         <servlet-name>BookDetail</servlet-name>
         <url-pattern>/book/details</url-pattern>
     </servlet-mapping>
-    
+
     <servlet-mapping>
-        <servlet-name>BookSearch</servlet-name>
-        <url-pattern>/book/search</url-pattern>
+        <servlet-name>AdminAddBook</servlet-name>
+        <url-pattern>/admin/book/add</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>AdminUpdateBook</servlet-name>
+        <url-pattern>/admin/book/update</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>AdminDeleteBook</servlet-name>
+        <url-pattern>/admin/book/delete</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>AdminViewRefund</servlet-name>
+        <url-pattern>/admin/refund/view</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>AdminApproveRefund</servlet-name>
+        <url-pattern>/admin/refund/approve</url-pattern>
     </servlet-mapping>
 
     <welcome-file-list>
