@@ -89,7 +89,7 @@ public class Utils {
     }
 
 
-    public static String getSearchLinkPreviousPage(String query, int offset, int total, int resultPerPage) {
+    public static String getSearchLinkPreviousPage(HttpServletRequest request, String query, int offset, int total, int resultPerPage) {
         if (offset == 0 || total <= resultPerPage) {
             return null;
         } else if (offset - resultPerPage < 0) {
@@ -97,15 +97,15 @@ public class Utils {
         } else {
             offset -= resultPerPage;
         }
-        return "/book/search?q=" + query + "&offset=" + offset;
+        return (request == null ? "" : request.getContextPath()) + "/book/search?q=" + query + "&offset=" + offset;
     }
 
-    public static String getSearchLinkNextPage(String query, int offset, int total, int resultPerPage) {
+    public static String getSearchLinkNextPage(HttpServletRequest request, String query, int offset, int total, int resultPerPage) {
         if (offset + resultPerPage >= total || resultPerPage >= total) {
             return null;
         } else {
             offset += resultPerPage;
-            return "/book/search?q=" + query + "&offset=" + offset;
+            return (request == null ? "" : request.getContextPath()) + "/book/search?q=" + query + "&offset=" + offset;
         }
     }
 }

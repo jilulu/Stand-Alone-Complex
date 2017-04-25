@@ -49,11 +49,11 @@ public class UtilsTest {
     public void testGetSearchLinkPreviousPage() {
         String query = "someQuery";
         final int total = 12, limit = 10;
-        assertNull(Utils.getSearchLinkPreviousPage(query, 0, total, limit));
+        assertNull(Utils.getSearchLinkPreviousPage(null, query, 0, total, limit));
         for (int i = 1; i < 11; i++) {
-            assertEquals(Utils.getSearchLinkPreviousPage(query, 1, total, limit), "/book/search?q=someQuery&offset=0");
+            assertEquals(Utils.getSearchLinkPreviousPage(null, query, 1, total, limit), "/book/search?q=someQuery&offset=0");
         }
-        assertEquals(Utils.getSearchLinkPreviousPage(query, 11, total, limit), "/book/search?q=someQuery&offset=1");
+        assertEquals(Utils.getSearchLinkPreviousPage(null, query, 11, total, limit), "/book/search?q=someQuery&offset=1");
     }
 
     @Test
@@ -62,11 +62,11 @@ public class UtilsTest {
         final int total = 12, limit = 10;
 
         for (int i = 0; i < 2; i++) {
-            assertEquals(Utils.getSearchLinkNextPage(query, i, total, limit),
+            assertEquals(Utils.getSearchLinkNextPage(null, query, i, total, limit),
                     "/book/search?q=someQuery&offset=" + (i + limit));
         }
         for (int i = 2; i < 12; i++) {
-            assertNull(Utils.getSearchLinkNextPage(query, i, total, limit));
+            assertNull(Utils.getSearchLinkNextPage(null, query, i, total, limit));
         }
 
 //        System.out.println(Utils.getSearchLinkNextPage(query, 10, 13, 10));

@@ -181,4 +181,14 @@
         <url-pattern>/book/search</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>UserLoyaltyPoints</servlet-name>
+        <servlet-class>api.user.loyaltypoint.LoyaltyPointsServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>UserLoyaltyPoints</servlet-name>
+        <url-pattern>/user/loyalty</url-pattern>
+    </servlet-mapping>
+
 </web-app>

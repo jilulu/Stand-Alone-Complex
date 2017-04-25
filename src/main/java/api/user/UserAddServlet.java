@@ -1,5 +1,6 @@
 package api.user;
 
+import model.IUser;
 import model.SQLUserImpl;
 
 import javax.servlet.ServletException;
@@ -30,6 +31,11 @@ public class UserAddServlet extends HttpServlet {
                 break;
             case DatabaseHelper.StatusCode.SUCCESSFUL:
                 String token = TokenUtils.getToken(sqlUser);
+
+                // initiate this user in the royalty point table
+                IUser iUser = DatabaseHelper.getInstance().authUserByToken(userName, token);
+                api.user.loyaltypoint.DatabaseHelper.getInstance().initUser(iUser.getUserId());
+
                 request.getSession().setAttribute("username", userName);
                 request.getSession().setAttribute("token", token);
                 response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/user/purchase"));
