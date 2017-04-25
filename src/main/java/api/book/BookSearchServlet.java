@@ -43,8 +43,8 @@ public class BookSearchServlet extends HttpServlet {
         request.setAttribute("query", query);
         request.setAttribute("result", queryResult);
 
-        String searchLinkPreviousPage = Utils.getSearchLinkPreviousPage(query, offset, queryResult.getTotal(), QUERY_RESULTS_PER_PAGE);
-        String searchLinkNextPage = Utils.getSearchLinkNextPage(query, offset, queryResult.getTotal(), QUERY_RESULTS_PER_PAGE);
+        String searchLinkPreviousPage = Utils.getSearchLinkPreviousPage(request, query, offset, queryResult.getTotal(), QUERY_RESULTS_PER_PAGE);
+        String searchLinkNextPage = Utils.getSearchLinkNextPage(request, query, offset, queryResult.getTotal(), QUERY_RESULTS_PER_PAGE);
         request.setAttribute("previousPage", searchLinkPreviousPage);
         request.setAttribute("nextPage", searchLinkNextPage);
 

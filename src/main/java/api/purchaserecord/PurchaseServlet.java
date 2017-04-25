@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * Created by jamesji on 08/04/2017.
@@ -39,6 +40,20 @@ public class PurchaseServlet extends HttpServlet {
         if (sessionUser == null) {
             Utils.forwardSignInPageWithSelfRedirect(request, response);
             return;
+        }
+        if (paymentMethod == Arrays.asList(DatabaseHelper.Table.DEFINITION_PAYMENT_RECORD).indexOf("royalty point")) {
+            double loyaltyPoints = api.user.loyaltypoint.DatabaseHelper.getInstance().queryUserLoyaltyPoints(sessionUser.getUserId());
+            if (loyaltyPoints < Double.parseDouble(iBook.getPrice()) * quantity) {
+                String redirectUrl = response.encodeRedirectURL(request.getContextPath() + "/book/confirm?book_id=" +
+                        bookId + "&quantity=" + quantity + "&insufficient_funds=true");
+                response.sendRedirect(redirectUrl);
+                return;
+            } else {
+                api.user.loyaltypoint.DatabaseHelper.getInstance().updateUserLoyaltyPoint(
+                        sessionUser.getUserId(),
+                        loyaltyPoints - quantity * Double.parseDouble(iBook.getPrice())
+                );
+            }
         }
         IPurchaseRecord record = new SQLPurchaseRecordImpl(
                 0,

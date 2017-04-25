@@ -20,11 +20,6 @@ import java.util.Arrays;
 public class BookPurchaseServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request, response);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int bookId = 0, quantity = 0;
         IBook book;
         try {
@@ -45,11 +40,20 @@ public class BookPurchaseServlet extends HttpServlet {
             Utils.forwardSignInPageWithSelfRedirect(request, response);
             return;
         }
+        if (request.getParameter("insufficient_funds") != null &&
+                request.getParameter("insufficient_funds").equals("true")) {
+            request.setAttribute("insufficientFunds", true);
+        }
         request.setAttribute("bookid", bookId);
         request.setAttribute("quantity", quantity);
         request.setAttribute("book", book);
         request.setAttribute("paymentMethodList", Arrays.asList(DatabaseHelper.Table.DEFINITION_PAYMENT_RECORD));
         request.getRequestDispatcher("/book/order_confirm.jsp")
                 .forward(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doGet(request, response);
     }
 }

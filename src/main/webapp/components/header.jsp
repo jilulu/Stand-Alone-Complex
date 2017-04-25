@@ -56,6 +56,7 @@
                        aria-haspopup="true" aria-expanded="false"><%=usernameAttribute%><span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="${pageContext.request.contextPath}/user/purchase">Purchase Record</a></li>
+                        <li><a href="${pageContext.request.contextPath}/user/loyalty">Loyalty Points</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="${pageContext.request.contextPath}/user/logout">Logout</a></li>
                     </ul>

@@ -29,7 +29,7 @@ public class DatabaseHelper {
         public static final String[] DEFINITION_PAYMENT_RECORD = {
                 "credit card",
                 "cash on delivery",
-                "royalty point"
+                "loyalty point"
         };
     }
 
