@@ -45,9 +45,12 @@
                     <div class="form-group">
                         <label for="qty" class="col-sm-2 control-label">Quantity</label>
                         <div class="col-sm-10">
-                            <select class="form-control" disabled id="qty" name="quantity">
-                                <option value="${quantity}">${quantity}
-                                </option>
+                            <select class="form-control" id="qty" name="quantity">
+                                <c:forEach var="i" begin="1" end="30">
+                                    <option value="${quantity}" <c:if test="${i == quantity}">selected</c:if>>
+                                            ${i}
+                                    </option>
+                                </c:forEach>
                             </select>
                         </div>
                     </div>
@@ -95,7 +98,7 @@
                     </div>
 
                     <div class="col-xs-8"><b>Quantity</b></div>
-                    <div class="col-xs-4 book-quantity">${book.price}
+                    <div class="col-xs-4 book-quantity">${quantity}
                     </div>
 
                     <hr class="col-xs-12 content-divider"/>
@@ -104,7 +107,7 @@
                         <b>Total amount</b>
                     </div>
                     <div class="col-xs-6">
-                        <span class="book-price">
+                        <span class="book-price total-price">
                             <fmt:parseNumber var="price" type="number" value="${book.price}"/>
                             <c:out value="${price * quantity}"/>
                         </span>
@@ -132,6 +135,16 @@
     $(function () {
         $(".buybuybuybutton").click(function () {
             $("form").submit()
+        });
+        $(function () {
+            $("#qty").change(function () {
+                var quantity = "";
+                $("#qty").find("option:selected").each(function () {
+                    quantity += $(this).text() + " ";
+                });
+                $(".book-quantity").text(quantity);
+                $(".total-price").text(parseInt(quantity) * parseFloat(${book.price}));
+            })
         });
     })
 </script>
