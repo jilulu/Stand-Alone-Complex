@@ -40,7 +40,7 @@
             <div class="panel-body" style="padding: 20px;">
                 <h4>Thank you for buying from us! We need some more information to complete your order.</h4>
                 <form class="form-horizontal row" action="${pageContext.request.contextPath}/book/purchase"
-                      method="post">
+                      method="get">
                     <input type="hidden" name="bookid" value="${bookid}"/>
                     <div class="form-group">
                         <label for="qty" class="col-sm-2 control-label">Quantity</label>
