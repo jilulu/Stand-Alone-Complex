@@ -215,4 +215,41 @@ public class DatabaseHelper {
         });
         return i[0];
     }
+
+    public boolean updatePurchaseRecordStatus(int purchaseId, int status)
+    {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = DatabaseManager.getInstance().getDatabaseConnection();
+            statement = connection.prepareStatement("UPDATE Shinjin.dbo.PurchaseRecord SET " + Table.COLUMN_PURCHASE_STATUS +" = ? WHERE " + Table.COLUMN_ID + " = ?");
+            statement.setInt(1, status);
+            statement.setInt(2, purchaseId);
+            int result = statement.executeUpdate();
+            if (result == 1)
+                return true;
+            else return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    // ignored
+                }
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    // ignored
+                }
+            }
+        }
+        return false;
+    }
+
+    Collection<IPurchaseRecord> getPurchaseRecordsByStatus(int status) {
+        return performGenericQuery("SELECT * FROM PurchaseRecord WHERE purchase_status=(?)", Collections.singletonList(status));
+    }
+    
 }

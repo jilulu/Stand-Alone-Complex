@@ -88,6 +88,7 @@ public class Utils {
         return null;
     }
 
+
     public static String getSearchLinkPreviousPage(String query, int offset, int total, int resultPerPage) {
         if (offset == 0 || total <= resultPerPage) {
             return null;

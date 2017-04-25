@@ -40,7 +40,15 @@ public class PurchaseRecordManager {
         return DatabaseHelper.getInstance().getPurchaseRecordById(purchaseRecordId);
     }
 
+    public Collection<IPurchaseRecord> getUserPurchaseRecordByStatus(int status) {
+        return DatabaseHelper.getInstance().getPurchaseRecordsByStatus(status);
+    }
+
     public int createPurchaseRecord(IPurchaseRecord record) {
         return DatabaseHelper.getInstance().insertPurchaseRecordReturnId(record);
+    }
+
+    public boolean updatePurchaseRecordStatus(int purchaseId, int status){
+        return DatabaseHelper.getInstance().updatePurchaseRecordStatus(purchaseId, status);
     }
 }

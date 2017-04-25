@@ -136,16 +136,16 @@
         $(".buybuybuybutton").click(function () {
             $("form").submit()
         });
-    });
-    $(function () {
-        $("#qty").change(function () {
-            var quantity = "";
-            $("#qty").find("option:selected").each(function () {
-                quantity += $(this).text() + " ";
-            });
-            $(".book-quantity").text(quantity);
-            $(".total-price").text(parseInt(quantity) * parseFloat(${book.price}));
-        })
+        $(function () {
+            $("#qty").change(function () {
+                var quantity = "";
+                $("#qty").find("option:selected").each(function () {
+                    quantity += $(this).text() + " ";
+                });
+                $(".book-quantity").text(quantity);
+                $(".total-price").text(parseInt(quantity) * parseFloat(${book.price}));
+            })
+        });
     })
 </script>
 </body>

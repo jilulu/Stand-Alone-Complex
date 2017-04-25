@@ -27,6 +27,16 @@
 <%@include file="/components/header.jsp" %>
 
 <div class="container">
+    <c:if test="${not empty successMessage}">
+        <div class="alert alert-success">
+            <c:out value="${successMessage}"/>
+        </div>
+    </c:if>
+    <c:if test="${not empty errorMessage}">
+        <div class="alert alert-danger">
+            <c:out value="${errorMessage}"/>
+        </div>
+    </c:if>
     <h1>Purchase Record #${purchase_record.id}</h1>
     <h3>Thank you for shopping with us! Here is your order. </h3>
     <hr/>
@@ -96,12 +106,37 @@
                         </div>
                     </div>
 
+                </div>
+            </div>
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    More Action
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="book-detail-row">
+                            <form method="post" action="${pageContext.request.contextPath}/user/purchaseaction">
+                                <input type="hidden" name="purchaseId" value="${purchase_record.id}"/>
+                                <div class="col-sm-6">
+                                    <select class="form-control" id="actionId" name="actionId">
+                                        <option value="1" selected="selected">Refund</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-6">
+                                    <button type="submit" class="btn btn-default">Confirm</button>
+                                    
+                                </div>
+                            </form>
+                        </div>
                     </div>
+                    
+
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 
 <!-- Bootstrap core JavaScript
 ================================================== -->

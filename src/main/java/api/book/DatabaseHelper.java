@@ -310,6 +310,48 @@ public class DatabaseHelper {
     }
 
     /**
+     * Update one {@link IBook} into the table.
+     *
+     * @param book The book to be updated in the table.
+     */
+    public void updateBook(IBook book) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = DatabaseManager.getInstance().getDatabaseConnection();
+            //UPDATE table_name
+            //SET column1 = value1, column2 = value2, ...
+            //WHERE condition;
+            statement = connection.prepareStatement("UPDATE Shinjin.dbo.Book SET " +
+                    "title=?, author=?, publisher=?, summary=?, isbn=?, cover_url=?, price=? " +
+                    "WHERE id=?");
+            statement.setNString(1, book.getTitle());
+            statement.setNString(2, book.getAuthor());
+            statement.setNString(3, book.getImprint());
+            statement.setNString(4, book.getSummary());
+            statement.setNString(5, book.getIsbn());
+            statement.setString(6, book.getCoverUrl());
+            statement.setDouble(7, Utils.getFirstNumberInString(book.getPrice()));
+            statement.setInt(8, Integer.parseInt(book.getId()));
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (statement != null) statement.close();
+            } catch (SQLException e) {
+                // ignored
+            }
+            try {
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    /**
      * @param id id of the row to delete
      * @return true if the row is deleted, false otherwise
      */
