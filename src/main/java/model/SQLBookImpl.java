@@ -4,7 +4,7 @@ package model;
  * Created by jamesji on 25/03/2017.
  * Copyright © 2017 James Ji. All rights reserved.
  */
-public class SQLBookImpl implements IBook{
+public class SQLBookImpl implements IBook {
 
     private String title, imprint, summary, author, isbn, coverUrl, price, id;
 
@@ -68,14 +68,14 @@ public class SQLBookImpl implements IBook{
             return false;
         }
         SQLBookImpl sqlBook = (SQLBookImpl) obj;
-        return title == null ? sqlBook.title == null : title.equals(sqlBook.title) &&
-                imprint == null ? sqlBook.imprint == null : imprint.equals(sqlBook.imprint) &&
-                summary == null ? sqlBook.summary == null : summary.equals(sqlBook.summary) &&
-                author == null ? sqlBook.author == null : author.equals(sqlBook.author) &&
-                isbn == null ? sqlBook.isbn == null : isbn.equals(sqlBook.isbn) &&
-                coverUrl == null ? sqlBook.coverUrl == null : coverUrl.equals(sqlBook.coverUrl) &&
-                price == null ? sqlBook.price == null : price.equals(sqlBook.price) &&
-                id == null ? sqlBook.id == null : id.equals(sqlBook.id);
+        return (title == null ? sqlBook.title == null : title.equals(sqlBook.title)) &&
+                (imprint == null ? sqlBook.imprint == null : imprint.equals(sqlBook.imprint)) &&
+                (summary == null ? sqlBook.summary == null : summary.equals(sqlBook.summary)) &&
+                (author == null ? sqlBook.author == null : author.equals(sqlBook.author)) &&
+                (isbn == null ? sqlBook.isbn == null : isbn.equals(sqlBook.isbn)) &&
+                (coverUrl == null ? sqlBook.coverUrl == null : coverUrl.equals(sqlBook.coverUrl)) &&
+                (price == null ? sqlBook.price == null : price.equals(sqlBook.price)) &&
+                (id == null ? sqlBook.id == null : id.equals(sqlBook.id));
     }
 
     @Override

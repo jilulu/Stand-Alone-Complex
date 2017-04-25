@@ -1,6 +1,6 @@
 package contentprovider.booklist;
 
-import api.DatabaseHelper;
+import api.book.DatabaseHelper;
 import model.IBook;
 import model.SQLBookImpl;
 
@@ -19,6 +19,6 @@ public class SQLArrivalBookListProvider implements IBookListProvider {
     @Override
     public List<? extends IBook> provideBookList() {
         Collection<SQLBookImpl> results = DatabaseHelper.getInstance().queryBooksByTitle("凉宫春日");
-        return new ArrayList<>(results);
+        return new ArrayList<SQLBookImpl>(results);
     }
 }

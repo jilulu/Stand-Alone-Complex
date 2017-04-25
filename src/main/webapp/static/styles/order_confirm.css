@@ -1,0 +1,27 @@
+@import "base.css";
+
+.panel-default .panel-body {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.book-price {
+    color: #b12704;
+    font-size: 17px;
+    text-align: end;
+    display: block;
+}
+
+.book-quantity {
+    text-align: end;
+    display: block;
+}
+
+.content-divider {
+    padding: 0;
+    width:100%;
+}
+
+.buybuybuybutton {
+    width: 100%;
+}

@@ -1,5 +1,7 @@
-package api;
+package api.book;
 
+import api.DatabaseManager;
+import api.Utils;
 import model.IBook;
 import model.SQLBookImpl;
 
@@ -19,9 +21,9 @@ import java.util.*;
 public class DatabaseHelper {
 
     // The contract: column names
-    static class Table {
+    public static class Table {
         static final String COLUMN_ID = "id";
-        static final String COLUMN_TITLE = "title";
+        public static final String COLUMN_TITLE = "title";
         static final String COLUMN_AUTHOR = "author";
         static final String COLUMN_PUBLISHER = "publisher";
         static final String COLUMN_SUMMARY = "summary";
@@ -31,11 +33,6 @@ public class DatabaseHelper {
     }
 
     private static volatile DatabaseHelper mHelper;
-
-    private static final String DB_MASTER_PASSWORD = "XcMvSLUKEfBzDLmrKWnfZz3NkfFNuV3";
-    private static final String JDBC_CONNECTION_CONFIG = "jdbc:sqlserver://sosdan.database.windows.net:1433;" +
-            "database=Shinjin;user=jilulu@sosdan;password=" + DB_MASTER_PASSWORD + ";encrypt=true;" +
-            "trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
 
     private DatabaseHelper() {
         // suppressed default constructor
@@ -48,18 +45,6 @@ public class DatabaseHelper {
             }
         }
         return mHelper;
-    }
-
-    Connection getDatabaseConnection() {
-        try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            return DriverManager.getConnection(JDBC_CONNECTION_CONFIG);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     /**
@@ -80,9 +65,9 @@ public class DatabaseHelper {
 
         Connection connection = null;
         PreparedStatement statement = null;
-        HashSet<SQLBookImpl> sqlBookHashSet = new HashSet<>();
+        final HashSet<SQLBookImpl> sqlBookHashSet = new HashSet<SQLBookImpl>();
         try {
-            connection = getDatabaseConnection();
+            connection = DatabaseManager.getInstance().getDatabaseConnection();
             statement = connection.prepareStatement(sqlQuery);
             for (int i = 0; i < queryReplacements.size(); i++) {
                 statement.setString(i + 1, queryReplacements.get(i));
@@ -128,7 +113,7 @@ public class DatabaseHelper {
         PreparedStatement statement = null;
         int count = 0;
         try {
-            connection = getDatabaseConnection();
+            connection = DatabaseManager.getInstance().getDatabaseConnection();
             statement = connection.prepareStatement(sqlQuery);
             for (int i = 0; i < queryReplacements.size(); i++) {
                 statement.setString(i + 1, queryReplacements.get(i));
@@ -162,7 +147,7 @@ public class DatabaseHelper {
     }
 
     /**
-     * Retrieve all books whose title column matches %{@code title}%
+     * Retrieve all book whose title column matches %{@code title}%
      *
      * @param title Title of the book that we're querying
      * @return A collection containing all the book records. In the current implementation of the method,
@@ -176,13 +161,13 @@ public class DatabaseHelper {
 
     public Collection<SQLBookImpl> queryBooksByTitle(String title, int offset, int limit) {
         if (offset < 0 || limit <= 0) {
-            return new HashSet<>();
+            return new HashSet<SQLBookImpl>();
         }
         //language=TSQL
         return executeGenericQuery("SELECT SortedTable.* FROM (" +
                         "SELECT r.*, ROW_NUMBER() OVER (ORDER BY ID) AS RowNum " +
                         "FROM Shinjin.dbo.Book AS r WHERE r.title LIKE (?)" +
-                        ") AS SortedTable WHERE SortedTable.RowNum BETWEEN " + offset + " AND " + limit,
+                        ") AS SortedTable WHERE SortedTable.RowNum BETWEEN " + (offset + 1) + " AND " + (offset + limit),
                 "%" + title + "%");
     }
 
@@ -206,16 +191,16 @@ public class DatabaseHelper {
     }
 
     /**
-     * Retrieve all books from the table.
+     * Retrieve all book from the table.
      *
      * @return All rows in the table.
      */
     public List<SQLBookImpl> queryAllBooks() {
         Connection connection = null;
         Statement statement = null;
-        List<SQLBookImpl> sqlBookList = new ArrayList<>();
+        final List<SQLBookImpl> sqlBookList = new ArrayList<SQLBookImpl>();
         try {
-            connection = getDatabaseConnection();
+            connection = DatabaseManager.getInstance().getDatabaseConnection();
             statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet resultSet = statement.executeQuery("SELECT t.* FROM Shinjin.dbo.Book AS t;");
             SqlBookAdapter sqlBookAdapter = new SqlBookAdapter(new SqlBookAdapter.Callback() {
@@ -247,7 +232,7 @@ public class DatabaseHelper {
 
     /**
      * Inset one {@link IBook} into the table.
-     * When inserting multiple books, use {@link #insertBatchBook(Collection)} instead.
+     * When inserting multiple book, use {@link #insertBatchBook(Collection)} instead.
      *
      * @param book The book to insert into the table.
      */
@@ -255,7 +240,7 @@ public class DatabaseHelper {
         Connection connection = null;
         PreparedStatement statement = null;
         try {
-            connection = getDatabaseConnection();
+            connection = DatabaseManager.getInstance().getDatabaseConnection();
             statement = connection.prepareStatement("INSERT INTO Shinjin.dbo.Book " +
                     "(title, author, publisher, summary, isbn, cover_url, price) " +
                     "VALUES ((?), (?), (?), (?), (?), (?), (?))");
@@ -286,13 +271,13 @@ public class DatabaseHelper {
     /**
      * Bath implementation for {@link #insertBook(IBook)}.
      *
-     * @param books The collection of books to insert into the table.
+     * @param books The collection of book to insert into the table.
      */
     public void insertBatchBook(Collection<IBook> books) {
         Connection connection = null;
         PreparedStatement statement = null;
         try {
-            connection = getDatabaseConnection();
+            connection = DatabaseManager.getInstance().getDatabaseConnection();
             statement = connection.prepareStatement("INSERT INTO Shinjin.dbo.Book " +
                     "(title, author, publisher, summary, isbn, cover_url, price) " +
                     "VALUES ((?), (?), (?), (?), (?), (?), (?))");
@@ -333,7 +318,7 @@ public class DatabaseHelper {
         PreparedStatement preparedStatement = null;
         int columnCount = 0;
         try {
-            connection = getDatabaseConnection();
+            connection = DatabaseManager.getInstance().getDatabaseConnection();
             preparedStatement = connection.prepareStatement("DELETE FROM Shinjin.dbo.Book WHERE id=(?)");
             preparedStatement.setInt(1, id);
             columnCount = preparedStatement.executeUpdate();

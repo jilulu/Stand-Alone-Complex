@@ -1,5 +1,10 @@
 package api;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 /**
@@ -51,6 +56,55 @@ public class Utils {
         } catch (Exception e) {
             e.printStackTrace();
             return 0;
+        }
+    }
+
+    public static void forwardSignInPageWithSelfRedirect(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        StringBuilder callbackUrl = new StringBuilder(request.getRequestURL());
+        String query = request.getQueryString();
+        if (query != null && query.length() > 0) {
+            callbackUrl.append("?").append(query);
+        }
+        String callbackUrlEncoded = encodeURL(callbackUrl.toString());
+        String redirectUrl = response.encodeRedirectURL(request.getContextPath() + "/user/signin?redirect=" + callbackUrlEncoded);
+        response.sendRedirect(redirectUrl);
+    }
+
+    static String encodeURL(String url) {
+        try {
+            return java.net.URLEncoder.encode(url, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String decodeURL(String encodedUrl) {
+        try {
+            return java.net.URLDecoder.decode(encodedUrl, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String getSearchLinkPreviousPage(String query, int offset, int total, int resultPerPage) {
+        if (offset == 0 || total <= resultPerPage) {
+            return null;
+        } else if (offset - resultPerPage < 0) {
+            offset = 0;
+        } else {
+            offset -= resultPerPage;
+        }
+        return "/book/search?q=" + query + "&offset=" + offset;
+    }
+
+    public static String getSearchLinkNextPage(String query, int offset, int total, int resultPerPage) {
+        if (offset + resultPerPage >= total || resultPerPage >= total) {
+            return null;
+        } else {
+            offset += resultPerPage;
+            return "/book/search?q=" + query + "&offset=" + offset;
         }
     }
 }

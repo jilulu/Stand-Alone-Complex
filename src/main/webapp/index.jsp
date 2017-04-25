@@ -1,7 +1,4 @@
-<%@ page import="config.Config" %>
-<%@ page import="java.util.List" %>
-<%@ page import="contentprovider.booklist.BookListProviderFactory" %>
-<%@ page import="model.IBook" %>
+<%@ page import="config.Config,java.util.List,contentprovider.booklist.BookListProviderFactory,model.IBook" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%! private List<? extends IBook> bookList;
     private List<? extends IBook> recommendationBookList; %>
@@ -14,22 +11,22 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="<%=Config.CINEMA_NAME%>">
     <meta name="author" content="James Ji">
-    <%@include file="components/fav-icon-fragment.jsp" %>
+    <%@include file="/components/fav-icon-fragment.jsp" %>
 
     <title><%=Config.CINEMA_NAME%>
     </title>
 
     <!-- Bootstrap core CSS -->
-    <link href="./styles/bootstrap.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/static/styles/bootstrap.css" rel="stylesheet">
 
-    <link href="./styles/index.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/static/styles/index.css" rel="stylesheet">
 
     <script src="https://use.fontawesome.com/6a66321c71.js"></script>
 </head>
 
 <body>
 
-<%@include file="components/header.jsp" %>
+<%@include file="/components/header.jsp" %>
 
 <div class="container">
     <div class="recommendations">
@@ -142,8 +139,14 @@
     $(function () {
         $('.details-action-button').click(function () {
             var bookId = $(this).parents('.new-arrival-card').attr('id');
-            window.location.href = "${pageContext.request.contextPath}/book-details.jsp?id=" + bookId;
+            window.location.href = "${pageContext.request.contextPath}/book/details?id=" + bookId;
         });
+    });
+    $(function () {
+        $('.add-cart-action-button').click(function () {
+            var bookId = $(this).parents('.new-arrival-card').attr('id');
+            window.location.href = "${pageContext.request.contextPath}/book/confirm?quantity=1&book_id=" + bookId;
+        })
     })
 </script>
 
