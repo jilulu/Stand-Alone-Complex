@@ -23,8 +23,6 @@
 </head>
 
 <body>
-<%! private List<? extends IBook> bookList;
-%>
 <%
     String session_Admin_Username = (String)session.getAttribute("admin_username");
     String session_Admin_Token = (String)session.getAttribute("admin_token");
@@ -34,6 +32,7 @@
         response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/admin/signin.jsp"));
     }
 %>
+
 
 <%@include file="/components/admin_header.jsp" %>
 
@@ -72,10 +71,9 @@
     			<th></th>
     		</tr>
     <%
-        if (bookList == null) 
-        {
-            bookList = BookListProviderFactory.getAllProvider().provideBookList();
-        }
+        List<? extends IBook> bookList;
+        bookList = BookListProviderFactory.getAllProvider().provideBookList();
+        
         for (int i = 0; i < bookList.size(); i += 1) 
         {
             IBook book = bookList.get(i);

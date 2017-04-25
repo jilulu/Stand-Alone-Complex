@@ -26,7 +26,15 @@ public class AdminRefundViewServlet extends HttpServlet {
         }
         
         Collection<IPurchaseRecord> results = PurchaseRecordManager.getManager().getUserPurchaseRecordByStatus(2);
-        List<? extends IPurchaseRecord> purchaseRecords = new ArrayList<IPurchaseRecord>(results);
+        List<IPurchaseRecord> purchaseRecords = new ArrayList<IPurchaseRecord>(results);
+        Collections.sort(purchaseRecords, new Comparator<IPurchaseRecord>()
+        {
+            @Override
+            public int compare(IPurchaseRecord o1, IPurchaseRecord o2)
+            {
+                return o1.getId() - o2.getId();
+            }
+        });
         request.setAttribute("records", purchaseRecords);
         request.getRequestDispatcher("/admin/refund_view.jsp").forward(request, response);
 
