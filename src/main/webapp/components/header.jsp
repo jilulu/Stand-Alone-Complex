@@ -36,7 +36,7 @@
             </ul>
 
             <form class="navbar-form navbar-left" role="search"
-                  action="${pageContext.request.contextPath}/search.jsp" method="get">
+                  action="${pageContext.request.contextPath}/book/search" method="get">
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="Search" name="q" autocomplete="off"
                            style="background-color: #3F4347; border: none; ">
