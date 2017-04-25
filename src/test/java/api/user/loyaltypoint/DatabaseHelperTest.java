@@ -18,4 +18,9 @@ public class DatabaseHelperTest {
         System.out.println(v);
     }
 
+    @Test
+    public void updateUserLoyaltyPoint() throws Exception {
+//        DatabaseHelper.getInstance().updateUserLoyaltyPoint(13, 2);
+    }
+
 }

@@ -103,4 +103,35 @@ public class DatabaseHelper {
 
         return point;
     }
+
+    public void updateUserLoyaltyPoint(int userId, double newLoyaltyPoint) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        try {
+            connection = DatabaseManager.getInstance().getDatabaseConnection();
+            statement = connection.prepareStatement("UPDATE LoyaltyPoints SET point=(?) WHERE user_id=(?)");
+            statement.setInt(2, userId);
+            statement.setDouble(1, newLoyaltyPoint);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    //ignored
+                }
+            }
+
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    //ignored
+                }
+            }
+        }
+    }
 }

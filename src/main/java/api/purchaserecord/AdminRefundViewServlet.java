@@ -26,7 +26,7 @@ public class AdminRefundViewServlet extends HttpServlet {
         }
         
         Collection<IPurchaseRecord> results = PurchaseRecordManager.getManager().getUserPurchaseRecordByStatus(2);
-        List<IPurchaseRecord> purchaseRecords = new ArrayList(results);
+        List<? extends IPurchaseRecord> purchaseRecords = new ArrayList<IPurchaseRecord>(results);
         request.setAttribute("records", purchaseRecords);
         request.getRequestDispatcher("/admin/refund_view.jsp").forward(request, response);
 

@@ -34,20 +34,26 @@
 <div class="container">
     <h1>Order Details</h1>
 
+    <%--@elvariable id="insufficientFunds" type="java.lang.Boolean"--%>
+    <c:if test="${not empty insufficientFunds}">
+        <div class="alert alert-danger" role="alert">Insufficient funds! You don't have enough loyalty points to complete this purchase.
+        </div>
+    </c:if>
+
     <div class="col-sm-8">
         <div class="panel panel-default">
             <div class="panel-heading">Delivery and Payment information</div>
             <div class="panel-body" style="padding: 20px;">
                 <h4>Thank you for buying from us! We need some more information to complete your order.</h4>
                 <form class="form-horizontal row" action="${pageContext.request.contextPath}/book/purchase"
-                      method="get">
+                      method="get" autocomplete="off">
                     <input type="hidden" name="bookid" value="${bookid}"/>
                     <div class="form-group">
                         <label for="qty" class="col-sm-2 control-label">Quantity</label>
                         <div class="col-sm-10">
-                            <select class="form-control" id="qty" name="quantity">
+                            <select id="qty" name="quantity">
                                 <c:forEach var="i" begin="1" end="30">
-                                    <option value="${quantity}" <c:if test="${i == quantity}">selected</c:if>>
+                                    <option value="${quantity}" <c:if test="${i == quantity}">selected="selected"</c:if>>
                                             ${i}
                                     </option>
                                 </c:forEach>
